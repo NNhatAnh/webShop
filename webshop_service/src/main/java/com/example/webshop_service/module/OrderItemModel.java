@@ -1,5 +1,6 @@
 package com.example.webshop_service.module;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 

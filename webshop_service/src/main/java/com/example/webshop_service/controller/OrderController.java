@@ -27,8 +27,8 @@ public class OrderController {
     }
 
     @GetMapping("/listOrder")
-    public List<Object> listOrder() {
-        List<Object> listOrder = orderListRepo.listOrder();
+    public List<OrderListModel> listOrder() {
+        List<OrderListModel> listOrder = orderListRepo.listOrder();
         return listOrder;
     }
 }

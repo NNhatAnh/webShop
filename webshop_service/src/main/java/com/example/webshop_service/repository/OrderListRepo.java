@@ -7,6 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface OrderListRepo extends JpaRepository<OrderListModel, Integer> {
-    @Query("SELECT o.id, o.status, o.totalPrice, o.timeOrder FROM OrderListModel o")
-    List<Object> listOrder();
+    @Query("SELECT o FROM OrderListModel o")
+    List<OrderListModel> listOrder();
 }
