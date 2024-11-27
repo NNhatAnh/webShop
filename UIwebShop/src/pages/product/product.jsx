@@ -34,9 +34,10 @@ export default function Product() {
                 <ul>
                     {products.map((product, index) => (
                         <li key={index} className="product-item">
-                            <p><strong>Order ID:</strong> {product.orderId}</p>
-                            <p><strong>Product Name:</strong> {product.name}</p>
-                            <p><strong>Price:</strong> ${product.price}</p>
+                            <p><strong>Order ID:</strong> {product.id}</p>
+                            <p><strong>Status:</strong> {product.status}</p>
+                            <p><strong>Price:</strong> {product.totalPrice}</p>
+                            <p><strong>Time:</strong> {product.timeOrder}</p>
                         </li>
                     ))}
                 </ul>
