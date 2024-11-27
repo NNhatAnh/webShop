@@ -15,6 +15,7 @@ public class OrderListModel {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = false)
+    @JsonIgnore
     private UserModel user;
 
     @Enumerated(EnumType.STRING)

@@ -1,13 +1,13 @@
 package com.example.webshop_service.controller;
 
+import com.example.webshop_service.module.OrderItemModel;
 import com.example.webshop_service.module.OrderListModel;
 import com.example.webshop_service.repository.OrderItemRepo;
 import com.example.webshop_service.repository.OrderListRepo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,8 +27,20 @@ public class OrderController {
     }
 
     @GetMapping("/listOrder")
-    public List<Object> listOrder() {
-        List<Object> listOrder = orderListRepo.listOrder();
+    public List<OrderListModel> listOrder() {
+        List<OrderListModel> listOrder = orderListRepo.findAll();
         return listOrder;
+    }
+
+    @GetMapping("/{userID}")
+    public List<OrderListModel> orderById(@PathVariable int userID) {
+        List<OrderListModel> userOrder = orderListRepo.listOrder(userID);
+        return userOrder;
+    }
+
+    @GetMapping("/orderDetail/{orderID}")
+    public List<OrderItemModel> orderDetail(@PathVariable int orderID) {
+        List<OrderItemModel> orderDetail = orderItemRepo.findByOrderId(orderID);
+        return orderDetail;
     }
 }

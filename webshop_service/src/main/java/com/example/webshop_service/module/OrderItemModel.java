@@ -1,5 +1,6 @@
 package com.example.webshop_service.module;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 
@@ -10,8 +11,9 @@ public class OrderItemModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "order_id", nullable = false)
+    @JsonIgnore
     private OrderListModel order;
 
     @ManyToOne

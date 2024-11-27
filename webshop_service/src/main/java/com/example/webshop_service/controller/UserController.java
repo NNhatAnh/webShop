@@ -20,7 +20,7 @@ public class UserController {
         return "Web app sell watch";
     }
 
-    @GetMapping("/getAllUser")
+    @GetMapping("/listUser")
     public List<UserModel> getUserList() {
         return UserRepo.findAll();
     }
