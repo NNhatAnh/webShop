@@ -1,2 +1,2 @@
 # webShop
-A web application to manager a clothing store
+A web application to manager a Watch store
