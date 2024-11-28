@@ -13,16 +13,22 @@ public class OrderItemModel {
 
     @ManyToOne
     @JoinColumn(name = "order_id", nullable = false)
+    @JsonIgnore
     private OrderListModel order;
 
     @ManyToOne
     @JoinColumn(name = "product_id", nullable = false)
+    @JsonIgnore
     private ProductModel product;
 
     private Integer quantity;
 
     @Column(name = "price", precision = 10, scale = 2)
     private BigDecimal price;
+
+    public int getID() {
+        return id;
+    }
 
     public OrderListModel getOrder() {
         return order;

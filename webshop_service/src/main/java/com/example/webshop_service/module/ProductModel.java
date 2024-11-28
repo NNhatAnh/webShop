@@ -20,6 +20,10 @@ public class ProductModel {
     @Column(name = "update_time", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime updateTime;
 
+    public int getID() {
+        return id;
+    }
+
     public String getName() {
         return name;
     }

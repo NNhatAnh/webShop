@@ -30,6 +30,10 @@ public class OrderListModel {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderItemModel> items;
 
+    public int getID() {
+        return id;
+    }
+
     public enum Status {
         pending, completed, cancelled
     }
