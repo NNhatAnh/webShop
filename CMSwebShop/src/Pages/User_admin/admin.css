@@ -1,0 +1,62 @@
+/* Khu vực nội dung chính */
+.admin-content-main-content {
+    margin-left: 250px; /* Tương ứng với chiều rộng sidebar */
+    margin-top: 70px; /* Tương ứng với chiều cao header */
+    margin-bottom: 50px; /* Tương ứng với chiều cao footer */
+    padding: 20px; /* Khoảng cách nội dung với viền */
+    background-color: #f8f9fa; /* Nền nhạt cho phần chính */
+    min-height: calc(100vh - 120px); /* Chiều cao tối thiểu: trừ header và footer */
+    box-sizing: border-box; /* Bao gồm cả padding trong kích thước */
+}
+
+/* Bố cục của admin-info-wrapper */
+.admin-info-wrapper {
+    background-color: #fff; /* Nền trắng cho khu vực thông tin */
+    border-radius: 8px; /* Bo góc cho khung thông tin */
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Hiệu ứng đổ bóng */
+    margin-bottom: 20px; /* Khoảng cách dưới */
+}
+
+/* Kiểu hiển thị các mục thông tin */
+.admin-info-item {
+    display: flex;
+    margin-bottom: 10px; /* Khoảng cách giữa các mục */
+}
+
+.admin-info-item label {
+    font-weight: bold;
+    color: #333;
+    margin-right: 5px;
+    font-size: 18px ;
+}
+
+.admin-info-item p {
+    color: #555;
+    margin: 0;
+    font-size: 18px;
+}
+
+/* Nút hành động */
+.admin-action-buttons {
+    display: flex;
+    justify-content: flex-end; /* Canh các nút sang phải */
+    gap: 10px; /* Khoảng cách giữa các nút */
+}
+
+.admin-action-buttons .btn {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.admin-action-buttons .btn-edit {
+    background-color: #007bff; /* Màu xanh chỉnh sửa */
+    color: white;
+}
+
+.admin-action-buttons .btn-delete {
+    background-color: #dc3545; /* Màu đỏ xóa */
+    color: white;
+}

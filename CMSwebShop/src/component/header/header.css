@@ -1,0 +1,92 @@
+/* Cấu trúc chính của header */
+.admin-header {
+    position: fixed; /* Ghim header cố định */
+    top: 0;
+    left: 250px; /* Dịch sang phải bằng độ rộng của sidebar */
+    right: 0;
+    height: 60px; /* Chiều cao của header */
+    background-color: #fff; /* Màu nền header */
+    color: #2c3e50; /* Màu chữ */
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; /* Nội dung nằm bên phải */
+    padding: 0 20px; /* Khoảng cách hai bên */
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1); /* Đường kẻ ngang dưới header */
+    z-index: 1000; /* Đảm bảo nằm trên các phần khác */
+}
+
+/* Phần bên phải của header */
+.admin-header-right {
+    display: flex;
+    align-items: center;
+}
+
+/* Kiểu danh sách nút tài khoản */
+.flex-box {
+    display: flex;
+    align-items: center;
+}
+
+.account-actions {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.account-actions li {
+    position: relative;
+}
+
+.account-dropdown p {
+    cursor: pointer;
+    font-size: 14px;
+    color: #2c3e50;
+    display: flex;
+    align-items: center;
+}
+
+.account-dropdown p:hover {
+    color: #34495e;
+}
+
+.account-dropdown i {
+    margin-left: 5px;
+    font-size: 16px;
+}
+
+/* Dropdown menu */
+.dropdown-menu {
+    position: absolute;
+    top: 100%; /* Xuất hiện ngay dưới mục "Tài Khoản" */
+    right: 0;
+    background-color: #fff;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    display: none; /* Ẩn mặc định */
+    z-index: 1100;
+}
+
+.dropdown-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.dropdown-menu ul li {
+    padding: 10px 10px;
+}
+
+.dropdown-menu ul li a {
+    text-decoration: none;
+    color: #2c3e50;
+    font-size: 14px;
+}
+
+.dropdown-menu ul li:hover {
+    background-color: #f2f2f2;
+}
+
+/* Hiển thị dropdown khi hover */
+.account-dropdown:hover .dropdown-menu {
+    display: block;
+}

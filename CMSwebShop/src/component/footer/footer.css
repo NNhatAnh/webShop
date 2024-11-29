@@ -1,0 +1,22 @@
+/* Định dạng chính cho footer */
+.footer {
+    position: fixed; /* Ghim footer cố định */
+    bottom: 0; /* Đặt ở cuối trang */
+    left: 250px; /* Đẩy qua phải bằng chiều rộng sidebar */
+    right: 0; /* Kéo dài đến hết trang */
+    height: 50px; /* Chiều cao của footer */
+    background-color: #1b5996; /* Màu nền footer */
+    color: #fff; /* Màu chữ */
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Canh giữa nội dung */
+    font-size: 14px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2); /* Đường kẻ ngang trên footer */
+    z-index: 1000; /* Đảm bảo footer nằm trên các thành phần khác */
+}
+
+/* Nếu nội dung cần nằm trên cùng trang */
+body {
+    margin: 0;
+    padding-bottom: 50px; /* Tạo không gian cho footer */
+}
