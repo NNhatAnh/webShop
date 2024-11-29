@@ -92,11 +92,11 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `name`, `title`, `brand`, `quantity`, `image`, `category`, `update_time`) VALUES
-(1, 'Classic Watch', 'Elegant analog watch', 'BrandA', 50, 'classic_watch.jpg', 'Analog', '2024-11-26 03:43:44'),
-(2, 'Smart Watch', 'Feature-rich smartwatch', 'BrandB', 30, 'smart_watch.jpg', 'Digital', '2024-11-26 03:43:44'),
-(3, 'Luxury Watch', 'Premium designer watch', 'BrandC', 15, 'luxury_watch.jpg', 'Analog', '2024-11-26 03:43:44'),
-(4, 'Fitness Tracker', 'Track your workouts', 'BrandD', 100, 'fitness_tracker.jpg', 'Digital', '2024-11-26 03:43:44'),
-(5, 'Sport Watch', 'Durable and stylish', 'BrandE', 25, 'sport_watch.jpg', 'Analog', '2024-11-26 03:43:44');
+(1, 'Classic Watch', 'Elegant analog watch', 'BrandA', 50, '/images/classic_watch.jpg', 'Analog', '2024-11-26 03:43:44'),
+(2, 'Smart Watch', 'Feature-rich smartwatch', 'BrandB', 30, '/images/smart_watch.jpg', 'Digital', '2024-11-26 03:43:44'),
+(3, 'Luxury Watch', 'Premium designer watch', 'BrandC', 15, '/images/luxury_watch.jpg', 'Analog', '2024-11-26 03:43:44'),
+(4, 'Fitness Tracker', 'Track your workouts', 'BrandD', 100, '/images/fitness_tracker.jpg', 'Digital', '2024-11-26 03:43:44'),
+(5, 'Sport Watch', 'Durable and stylish', 'BrandE', 25, '/images/sport_watch.jpg', 'Analog', '2024-11-26 03:43:44');
 
 -- --------------------------------------------------------
 
