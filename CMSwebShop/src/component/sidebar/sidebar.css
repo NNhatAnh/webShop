@@ -1,3 +1,4 @@
+/* Sidebar tổng thể */
 .admin-sidebar {
     position: fixed; /* Ghim sidebar ở bên trái */
     left: 0;
@@ -8,8 +9,10 @@
     color: #ecf0f1; /* Màu chữ */
     overflow-y: auto; /* Cuộn khi nội dung vượt quá chiều cao */
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    z-index: 1000; /* Đảm bảo sidebar luôn trên các thành phần khác */
 }
 
+/* Phần logo ở đầu sidebar */
 .admin-sidebar-top {
     text-align: center;
     padding: 20px;
@@ -22,16 +25,19 @@
     border-radius: 50%; /* Làm tròn logo nếu cần */
 }
 
+/* Danh sách menu chính */
 .admin-sidebar-content ul {
     list-style: none;
     padding: 0;
     margin: 0;
 }
 
+/* Menu chính */
 .admin-sidebar-content ul li {
     position: relative;
 }
 
+/* Liên kết trong menu chính */
 .admin-sidebar-content ul li > a {
     display: flex;
     align-items: center;
@@ -41,22 +47,27 @@
     color: #ecf0f1;
     font-size: 14px;
     transition: background-color 0.3s ease;
+    cursor: pointer;
 }
 
+/* Hiệu ứng hover cho liên kết */
 .admin-sidebar-content ul li > a:hover {
-    background-color: #34495e; /* Màu khi hover */
+    background-color: #34495e; /* Màu nền khi hover */
 }
 
+/* Menu con (mặc định ẩn) */
 .sub-menu {
-    display: none; /* Ẩn menu con */
-    /* padding-left: 20px; */
+    display: none; /* Ẩn menu con khi chưa click */
     background-color: #34495e; /* Màu nền menu con */
+    padding-left: 20px;
 }
 
-.admin-sidebar-content ul li:hover .sub-menu {
-    display: block; /* Hiển thị menu con khi hover */
+/* Hiển thị menu con khi có trạng thái mở */
+.sub-menu.open {
+    display: block; /* Hiển thị menu con */
 }
 
+/* Liên kết trong menu con */
 .sub-menu li a {
     display: block;
     padding: 10px;
@@ -65,11 +76,24 @@
     font-size: 13px;
 }
 
+/* Hiệu ứng hover cho menu con */
 .sub-menu li a:hover {
     background-color: #3c566f;
     border-radius: 5px;
 }
 
-.sub-menu-items {
+/* Căn lề và tạo khoảng cách cho các mục menu con */
+.sub-menu li {
     margin-top: 5px;
+}
+
+/* Icon mũi tên chỉ hướng */
+.admin-sidebar-content ul li > a i {
+    margin-left: 10px;
+    transition: transform 0.3s ease;
+}
+
+/* Xoay icon mũi tên khi menu con mở */
+.admin-sidebar-content ul li > a.open i {
+    transform: rotate(180deg); /* Xoay ngược */
 }
