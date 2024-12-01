@@ -71,10 +71,6 @@
   
   .form-actions {
     display: flex;
-    justify-content: space-between;
     gap: 10px;
-    position: relative;
-    left: 250px;
-    top: 50px;
   }
   
