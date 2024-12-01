@@ -5,6 +5,7 @@ import Footer from './component/footer/footer'
 import Product_list from './Pages/Product/product_list'
 import Order_list from './Pages/OrderList/order_list'
 import Product_add from './Pages/Product/product_add'
+import Product_edit from './Pages/Product/product_edit'
 
 function App() {
   return (
@@ -13,7 +14,8 @@ function App() {
       <Sidebar/>
       {/* <Product_list/> */}
       {/* <Order_list/> */}
-      <Product_add/>
+      {/* <Product_add/> */}
+      <Product_edit/>
       <Footer/>
     </>
   )
