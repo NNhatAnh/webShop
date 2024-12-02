@@ -1,6 +1,5 @@
 .product-add-container {
     padding: 20px;
-    /* max-width: ; */
     width: 80%;
     margin: 50px 255px 0;
     background: #f9f9f9;
@@ -30,7 +29,8 @@
     font-weight: bold;
   }
   
-  .form-group input {
+  .form-group input,
+  .form-group textarea {
     padding: 8px;
     font-size: 16px;
     border: 1px solid #ccc;
@@ -51,6 +51,15 @@
     background: #0056b3;
   }
   
+  button[type="button"] {
+    background: #f0f0f0;
+    color: #333;
+  }
+  
+  button[type="button"]:hover {
+    background: #ddd;
+  }
+  
   .image-preview {
     margin-top: 10px;
     max-width: 200px;
@@ -58,5 +67,10 @@
     object-fit: contain;
     border: 1px solid #ccc;
     border-radius: 4px;
+  }
+  
+  .form-actions {
+    display: flex;
+    gap: 10px;
   }
   
