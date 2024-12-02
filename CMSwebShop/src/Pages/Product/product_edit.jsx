@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import "./product_add.css";
+import "./product_edit.css";
 
-const Product_add = () => {
+const Product_edit = () => {
   const [formData, setFormData] = useState({
     product: "",
     image: null,
@@ -35,6 +35,24 @@ const Product_add = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Form data submitted:", formData);
+  };
+
+  const handleUpdate = () => {
+    console.log("Update button clicked");
+    // Logic for updating can be added here
+  };
+
+  const handleCancel = () => {
+    setFormData({
+      product: "",
+      image: null,
+      imagePreview: "",
+      title: "",
+      brand: "",
+      quantity: "",
+      category: "",
+    });
+    console.log("Form reset (cancelled)");
   };
 
   useEffect(() => {
@@ -98,7 +116,7 @@ const Product_add = () => {
 
   return (
     <div className="product-add-container">
-      <h2>Add New Product</h2>
+      <h2>Update Product</h2>
       <form className="product-add-form" onSubmit={handleSubmit}>
         <div className="form-group">
           <label>Product:</label>
@@ -154,10 +172,17 @@ const Product_add = () => {
             onChange={handleChange}
           />
         </div>
-        <button type="submit">Submit</button>
+        <div className="form-actions">
+          <button type="button" onClick={handleUpdate}>
+            Cập nhật
+          </button>
+          <button type="button" onClick={handleCancel}>
+            Hủy
+          </button>
+        </div>
       </form>
     </div>
   );
 };
 
-export default Product_add;
+export default Product_edit;
