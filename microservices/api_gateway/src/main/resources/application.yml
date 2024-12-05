@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: api_gateway
+  cloud:
+    gateway:
+      routes:
+        - id: userService
+          uri: http://localhost:1039
+          predicates:
+            - Path=/user/**
+
+        - id: productService
+          uri: http://localhost:1040
+          predicates:
+            - Path=/product/**
+
+        - id: orderService
+          uri: http://localhost:1041
+          predicates:
+            - Path=/order/**
+
