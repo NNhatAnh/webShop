@@ -1,37 +1,39 @@
 package com.example.user_service.controller;
 
 import com.example.user_service.module.UserModel;
-import com.example.user_service.reposotory.UserRepo;
-
+import com.example.user_service.service.userService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:8080")
-@RequestMapping("/user")
+@CrossOrigin(origins = "http://localhost:5173")
+@RequestMapping("/api/users")
 public class userController {
+
     @Autowired
-    private UserRepo UserRepo;
+    private userService userService;
 
-    @GetMapping("/")
-    public String home() {
-        return "Web app sell watch";
+    // Sign-Up Endpoint
+    @PostMapping("/signup")
+    public ResponseEntity<String> signUp(@RequestBody UserModel user) {
+        try {
+            userService.signUp(user);
+            return new ResponseEntity<>("User registered successfully!", HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Error: " + e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 
-    @GetMapping("/{userID}")
-    public List<UserModel> getMethodName(@PathVariable int userID) {
-        List<UserModel> userDetail = UserRepo.user(userID);
-        return userDetail;
-    }
-
-    @GetMapping("/listUser")
-    public List<UserModel> getUserList() {
-        return UserRepo.findAll();
+    // Sign-In Endpoint
+    @PostMapping("/signin")
+    public ResponseEntity<String> signIn(@RequestParam String email, @RequestParam String password) {
+        try {
+            UserModel user = userService.signIn(email, password);
+            return new ResponseEntity<>("Welcome, " + user.getUsername() + "!", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Error: " + e.getMessage(), HttpStatus.UNAUTHORIZED);
+        }
     }
 }
