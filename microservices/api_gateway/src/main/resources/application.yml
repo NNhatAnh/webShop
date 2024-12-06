@@ -1,6 +1,4 @@
 spring:
-  application:
-    name: api_gateway
   cloud:
     gateway:
       routes:
@@ -8,7 +6,7 @@ spring:
           uri: http://localhost:1039
           predicates:
             - Path=/user/**
-
+        
         - id: productService
           uri: http://localhost:1040
           predicates:
@@ -18,4 +16,3 @@ spring:
           uri: http://localhost:1041
           predicates:
             - Path=/order/**
-
