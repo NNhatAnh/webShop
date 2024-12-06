@@ -1,27 +1,28 @@
 package com.example.user_service.service;
 
-import java.time.LocalDateTime;
-import java.util.Optional;
+import com.example.user_service.module.UserModel;
+import com.example.user_service.reposotory.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.example.user_service.module.UserModel;
-import com.example.user_service.reposotory.userRepo;
+import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Service
 public class userService {
 
+
     @Autowired
-    private userRepo userRepo;
+    private UserRepository userRepository;
 
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     // Sign-Up Logic
     public UserModel signUp(UserModel user) {
         // Check if email is already registered
-        Optional<UserModel> existingUser = userRepo.findByEmail(user.getEmail());
+        Optional<UserModel> existingUser = userRepository.findByEmail(user.getEmail());
         if (existingUser.isPresent()) {
             throw new IllegalArgumentException("Email is already registered!");
         }
@@ -29,13 +30,13 @@ public class userService {
         // Hash the password and set the creation date
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setCreateDate(LocalDateTime.now());
-        return userRepo.save(user);
+        return userRepository.save(user);
     }
 
     // Sign-In Logic
     public UserModel signIn(String email, String password) {
         // Find user by email
-        UserModel user = userRepo.findByEmail(email)
+        UserModel user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new IllegalArgumentException("User not found!"));
 
         // Verify password
@@ -45,5 +46,4 @@ public class userService {
 
         return user;
     }
-
 }
