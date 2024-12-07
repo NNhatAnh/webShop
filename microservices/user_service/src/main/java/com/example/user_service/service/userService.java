@@ -8,7 +8,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
 
 @Service
 public class userService {
@@ -20,16 +19,22 @@ public class userService {
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     // Sign-Up Logic
-    public UserModel signUp(UserModel user) {
-        Optional<UserModel> existingUser = userRepository.findByEmail(user.getEmail());
-        if (existingUser.isPresent()) {
+    public UserModel signUp(String email, String username, String password) {
+        if (userRepository.findByEmail(email) != null) {
             throw new IllegalArgumentException("Email is already registered!");
+        } else if (userRepository.findByUsername(username) != null) {
+            throw new IllegalArgumentException("Username is already registered!");
         }
 
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRole(UserModel.Role.user);
-        user.setCreateDate(LocalDateTime.now());
-        return userRepository.save(user);
+        UserModel newUser = new UserModel();
+
+        newUser.setUsername(username);
+        newUser.setEmail(email);
+        newUser.setPassword(passwordEncoder.encode(password));
+        newUser.setRole(UserModel.Role.user);
+        newUser.setCreateDate(LocalDateTime.now());
+        
+        return userRepository.save(newUser);
     }
 
     // Sign-In Logic

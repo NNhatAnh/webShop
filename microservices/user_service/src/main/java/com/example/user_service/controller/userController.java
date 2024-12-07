@@ -43,9 +43,14 @@ public class userController {
 
     // Sign-Up Endpoint
     @PostMapping("/signup")
-    public ResponseEntity<String> signUp(@RequestBody UserModel user) {
+    public ResponseEntity<String> signUp(@RequestBody Map<String, String> body) {
         try {
-            userService.signUp(user);
+            String email = body.get("email");
+            String username = body.get("username");
+            String password = body.get("password");
+
+            userService.signUp(email, username, password);
+            
             return new ResponseEntity<>("User registered successfully!", HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>("Error: " + e.getMessage(), HttpStatus.BAD_REQUEST);

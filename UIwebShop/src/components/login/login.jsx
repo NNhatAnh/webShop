@@ -43,19 +43,17 @@ export default function Login({ closePopup }) {
         try {
             if (isLogin) {
                 const response = await userService.login(formData.username, formData.password);
-                console.log("Login Success:", response);
                 localStorage.setItem("user", JSON.stringify(response));
                 setUser(response);
                 alert("Login successful!");
                 closePopup();
             } else {
-                const response = await userService.signup(formData.email, formData.username, formData.password);
-                console.log("Signup Success:", response);
+                await userService.signup(formData.email, formData.username, formData.password);
                 alert("Signup successful!");
                 toggleForm();
             }
         } catch (error) {
-            setErrorMessage(error.response?.data?.message || "An error occurred. Please try again.");
+            setErrorMessage(error.response?.data || "An error occurred. Please try again.");
         }
     };
 
