@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./login.css";
-import { jwtDecode } from "jwt-decode";
 import userService from "../../services/userService";
+import useAuth from "../../hooks/useAuth";
 
 export default function Login({ closePopup }) {
     const [isLogin, setIsLogin] = useState(true);
@@ -9,20 +9,10 @@ export default function Login({ closePopup }) {
     const [errorMessage, setErrorMessage] = useState("");
     const [user, setUser] = useState(null);
 
-    const DecodeToken = (token) => {
-        try {
-            const decoded = jwtDecode(token);
-            return decoded;
-        } catch (error) {
-            console.error("Invalid token:", error);
-            return null;
-        }
-    }
-
     useEffect(() => {
         const storedUser = localStorage.getItem("user");
         if (storedUser) {
-            const decodedToken = DecodeToken(storedUser);
+            const decodedToken = useAuth.DecodeToken(storedUser);
             setUser(decodedToken?.data || null);
         }
     }, []);

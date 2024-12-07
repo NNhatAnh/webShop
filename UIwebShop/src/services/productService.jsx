@@ -9,6 +9,17 @@ const API = axios.create({
 
 class productService {
 
+    // APi for each product
+    static productDetail = async (productID) => {
+        try {
+            const response = await API.get(`/${productID}`);
+            return response.data;
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    }
+
     // API list all product
     static listProduct = async () => {
         try {

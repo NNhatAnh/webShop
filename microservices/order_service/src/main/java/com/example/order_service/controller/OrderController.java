@@ -30,10 +30,18 @@ public class OrderController {
 
     @GetMapping("/listOrder")
     public List<OrderListModel> listOrder() {
-        List<OrderListModel> listOrder = orderListRepo.listOrder();
+        List<OrderListModel> listOrder = orderListRepo.findAll();
         return listOrder;
     }
 
+    // API for get user cart
+    @GetMapping("/user/{userID}")
+    public List<OrderListModel> userOrder(@PathVariable int userID) {
+        List<OrderListModel> userOrder = orderListRepo.findByUser(userID);
+        return userOrder;
+    }
+
+    // API for get order detail
     @GetMapping("/{orderID}")
     public List<OrderItemModel> orderDetail(@PathVariable int orderID) {
         List<OrderItemModel> orderDetail = orderItemRepo.orderDetail(orderID);

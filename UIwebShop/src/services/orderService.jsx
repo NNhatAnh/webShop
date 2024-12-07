@@ -13,10 +13,20 @@ class orderService {
     static orderDetail = async (orderID) => {
         try {
             const response = await API.get(`/${orderID}`);
-            console.log(response.data);
             return response.data;
         } catch (error) {
-            console.error("Error fetching order details:", error);
+            console.error(error);
+            throw error;
+        }
+    }
+
+    // API for user cart
+    static userCart = async (userID) => {
+        try {
+            const response = await API.get(`/user/${userID}`);
+            return response.data;
+        } catch (error) {
+            console.error(error);
             throw error;
         }
     }
