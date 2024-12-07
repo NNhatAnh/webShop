@@ -42,12 +42,13 @@ export default function Product() {
 
     return (
         <div className="product-container">
-            {loading && <p>Loading...</p>}
-            {error && <p>Error: {error}</p>}
-            <div className={`product-grid ${showModal ? "modal-open" : ""}`}>
+            {loading && <p className="loading-text">Loading...</p>}
+            {error && <p className="error-text">Error: {error}</p>}
+
+            <div className="product-grid">
                 {products.map((product) => (
                     <div
-                        key={product.name}
+                        key={product.id}
                         className="product-item"
                         onClick={() => handleProductClick(product)}
                     >
@@ -56,8 +57,10 @@ export default function Product() {
                             alt={product.name}
                             className="product-image"
                         />
-                        <p className="product-title">{product.name}</p>
-                        <p className="product-title">{product.title}</p>
+                        <div className="product-info">
+                            <h3 className="product-name">{product.name}</h3>
+                            <p className="product-title">{product.title}</p>
+                        </div>
                     </div>
                 ))}
             </div>
@@ -66,7 +69,7 @@ export default function Product() {
                 <div className="modal-overlay" onClick={handleOverlayClick}>
                     <div className="modal-content">
                         <button className="close-btn" onClick={closeModal}>X</button>
-                        <h2>{selectedProduct.name}</h2>
+                        <h2 className="modal-title">{selectedProduct.name}</h2>
                         <div className="product-details">
                             <img
                                 src={selectedProduct.image}

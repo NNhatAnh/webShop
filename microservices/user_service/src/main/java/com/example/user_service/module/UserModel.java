@@ -3,6 +3,8 @@ package com.example.user_service.module;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "user")
 public class UserModel {
@@ -12,10 +14,12 @@ public class UserModel {
 
     private String username;
     private String email;
+
+    @JsonIgnore
     private String password;
     private String phone;
     private String address;
-
+    
     @Enumerated(EnumType.STRING)
     private Role role;
 

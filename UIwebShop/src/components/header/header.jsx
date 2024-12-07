@@ -4,7 +4,7 @@ import './header.css';
 
 import logoHeader from '../../assets/react.svg';
 
-export default function Header({ openLoginPopup }) {
+export default function Header({ openLoginPopup, openCartPopup }) {
     return (
         <section className="header">
             <div className="container">
@@ -29,13 +29,13 @@ export default function Header({ openLoginPopup }) {
                 </div>
                 <div className="subHeader">
                     <ul className="subList">
-                        <li className="seacrch">
+                        <li className="search">
                             <i className="fa-solid fa-magnifying-glass"></i>
                         </li>
                         <li className="user" onClick={openLoginPopup}>
                             <i className="fa-regular fa-user"></i>
                         </li>
-                        <li className="shopping-cart">
+                        <li className="shopping-cart" onClick={openCartPopup}>
                             <i className="fa-solid fa-cart-shopping"></i>
                         </li>
                     </ul>
