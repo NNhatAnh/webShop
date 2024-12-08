@@ -12,6 +12,16 @@ class useAuth {
         }
     };
 
+    static getUserRole = (token) => {
+        try {
+            const decoded = jwtDecode(token);
+            return decoded.data.role;
+        } catch (error) {
+            console.error("Error decoding token:", error);
+            return null;
+        }
+    };
+
     static DecodeToken = (token) => {
         try {
             const decoded = jwtDecode(token);
