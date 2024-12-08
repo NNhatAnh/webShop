@@ -20,9 +20,9 @@ public class userService {
 
     // Sign-Up Logic
     public UserModel signUp(String email, String username, String password) {
-        if (userRepository.findByEmail(email) != null) {
+        if (userRepository.findByEmail(email).isPresent()) {
             throw new IllegalArgumentException("Email is already registered!");
-        } else if (userRepository.findByUsername(username) != null) {
+        } else if (userRepository.findByUsername(username).isPresent()) {
             throw new IllegalArgumentException("Username is already registered!");
         }
 
