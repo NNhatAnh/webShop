@@ -13,9 +13,9 @@ public class ProductModel {
     private String name;
     private String title;
     private String brand;
-    private Integer quantity;
     private String image;
     private String category;
+    private Float price;
 
     @Column(name = "update_time", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime updateTime;
@@ -48,14 +48,6 @@ public class ProductModel {
         this.brand = brand;
     }
 
-    public Integer getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
-    }
-
     public String getImage() {
         return image;
     }
@@ -78,5 +70,13 @@ public class ProductModel {
 
     public void setUpdateTime(LocalDateTime updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public Float getPrice() {
+        return price;
+    }
+
+    public void setPrice(Float price) {
+        this.price = price;
     }
 }

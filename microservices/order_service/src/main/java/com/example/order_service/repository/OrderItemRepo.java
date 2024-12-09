@@ -11,4 +11,6 @@ import org.springframework.data.repository.query.Param;
 public interface OrderItemRepo extends JpaRepository<OrderItemModel, Integer> {
     @Query("SELECT o FROM OrderItemModel o WHERE o.order.id = :orderID")
     List<OrderItemModel> orderDetail(@Param("orderID") int orderID);
+    
+    List<OrderItemModel> findById(int id);
 }

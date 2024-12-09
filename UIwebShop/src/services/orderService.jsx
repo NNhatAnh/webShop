@@ -3,13 +3,12 @@ import axios from "axios";
 const API = axios.create({
     baseURL: `http://localhost:8080/order`,
     headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
     },
-})
+});
 
 class orderService {
-
-    // API for list item
+    // API for getting order details
     static orderDetail = async (orderID) => {
         try {
             const response = await API.get(`/${orderID}`);
@@ -18,9 +17,9 @@ class orderService {
             console.error(error);
             throw error;
         }
-    }
+    };
 
-    // API for user cart
+    // API for getting user cart
     static userCart = async (userID) => {
         try {
             const response = await API.get(`/user/${userID}`);
@@ -29,19 +28,43 @@ class orderService {
             console.error(error);
             throw error;
         }
-    }
+    };
 
-    // API list all order
-    static listOrder = async () => {
+    // API to delete order
+    static deleteOrder = async (orderID) => {
         try {
-            const response = await API.get("/listOrder");
-            console.log("Response:", response.data);
+            const response = await API.delete(`/delete/${orderID}`);
             return response.data;
         } catch (error) {
             console.error(error);
-            return error;
+            throw error;
         }
-    }
+    };
+
+    // API for listing all orders
+    static listOrder = async () => {
+        try {
+            const response = await API.get("/listOrder");
+            return response.data;
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    };
+
+    // API for adding items to an order
+    static addItem = async (userID, cartItems) => {
+        try {
+            const response = await API.post("/create", { user_id: userID });
+            const orderID = response.data.order_id;
+
+            const itemsResponse = await API.post(`/add/${orderID}`, cartItems);
+            return itemsResponse.data;
+        } catch (error) {
+            console.error("Failed to add items to order:", error);
+            throw error;
+        }
+    };
 }
 
 export default orderService;

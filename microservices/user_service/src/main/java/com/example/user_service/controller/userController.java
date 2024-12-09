@@ -25,23 +25,21 @@ public class userController {
     @Autowired
     private userService userService;
 
+    // Get list users
     @GetMapping("/listUser")
     public List<UserModel> listUser() {
         List<UserModel> user = userRepository.findAll();
         return user;
     }
 
+    // User information
     @GetMapping("{username}")
     public Optional<UserModel> userDetial(@PathVariable String username) {
         Optional<UserModel> user = userRepository.findByUsername(username);
         return user;
     }
 
-    public String getMethodName(@RequestParam String param) {
-        return new String();
-    }
-
-    // Sign-Up Endpoint
+    // Sign-Up
     @PostMapping("/signup")
     public ResponseEntity<String> signUp(@RequestBody Map<String, String> body) {
         try {
@@ -57,7 +55,7 @@ public class userController {
         }
     }
 
-    // Sign-In Endpoint
+    // Sign-In
     @PostMapping("/signin")
     public ResponseEntity<String> signIn(@RequestBody Map<String, String> body) {
         String username = body.get("username");

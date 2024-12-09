@@ -11,8 +11,6 @@ import java.time.LocalDateTime;
 
 @Service
 public class userService {
-
-
     @Autowired
     private UserRepository userRepository;
 

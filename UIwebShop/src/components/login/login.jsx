@@ -43,13 +43,15 @@ export default function Login({ closePopup }) {
                 toggleForm();
             }
         } catch (error) {
-            setErrorMessage(error.response?.data || "An error occurred. Please try again.");
+            const message = error.response?.data?.message || "An error occurred. Please try again.";
+            setErrorMessage(message);
         }
     };
 
     const handleLogout = () => {
         localStorage.removeItem("user");
         setUser(null);
+        closePopup();
     };
 
     return (
