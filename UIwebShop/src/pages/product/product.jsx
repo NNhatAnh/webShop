@@ -181,6 +181,7 @@ export default function Product() {
                                 <div className="cart-item-details">
                                     <p>{item.name}</p>
                                     <p>Price: ${item.price}</p>
+                                    <p>Quantity: {item.quantity}</p>
                                     <p>Total: ${item.price * item.quantity}</p>
                                     <button
                                         className="remove-item-btn"
