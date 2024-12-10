@@ -1,20 +1,51 @@
-import './order_list.css'
-import React, { useState, useEffect } from "react";
+import './order_list.css';
+import React, { useState, useEffect } from 'react';
 import orderService from '../../component/services/orderService';
-import { data } from 'react-router-dom';
-import { Link } from "react-router-dom";
+import adminService from '../../component/services/adminService';
+import { Link } from 'react-router-dom';
 
-function Order_list(){
-
+function Order_list() {
     const [orders, setOrders] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [selectedOrder, setSelectedOrder] = useState(null);
 
-    async function listOrder() {
+    const formatDateTime = (dateString) => {
+        const date = new Date(dateString);
+        return date.toLocaleString('vi-VN', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+        });
+    };
+
+    async function listOrderWithUsernames() {
         try {
-            const data = await orderService.listOrder();
-            setOrders(data);
+            const orderData = await orderService.listOrder();
+
+            const ordersWithUsernames = await Promise.all(
+                orderData.map(async (order) => {
+                    try {
+                        const users = await adminService.getUser(order.user);
+                        const foundUser = users.find((u) => u.id === order.user);
+                        return {
+                            ...order,
+                            username: foundUser ? foundUser.username : 'Unknown',
+                            timeOrderFormatted: formatDateTime(order.timeOrder),
+                        };
+                    } catch (err) {
+                        return {
+                            ...order,
+                            username: 'Unknown',
+                            timeOrderFormatted: 'Unknown',
+                        };
+                    }
+                })
+            );
+
+            setOrders(ordersWithUsernames);
             setLoading(false);
         } catch (err) {
             setError(err.message);
@@ -23,41 +54,35 @@ function Order_list(){
     }
 
     useEffect(() => {
-        listOrder();
-        console.log(data)
+        listOrderWithUsernames();
     }, []);
 
-    return(
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>Error: {error}</p>;
+
+    return (
         <div className="admin-content-main-content">
             <h2>List Order</h2>
             <table className="admin-table">
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>User id</th>
+                        <th>Username</th>
                         <th>Status</th>
                         <th>Total price</th>
                         <th>Time Order</th>
-                        <th>Aciton</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                {orders.map((order) => (
+                    {orders.map((order) => (
                         <tr key={order.id}>
-                            <td>{order.id}</td>
-                            <td>{order.user}</td>
+                            <td>{order.username}</td>
                             <td>{order.status}</td>
                             <td>{order.totalPrice}</td>
-                            <td>{order.timeOrder}</td>
+                            <td>{order.timeOrderFormatted}</td>
                             <td>
                                 <button className="btn btn-edit">
-                                    <Link
-                                        to={{
-                                            pathname: `/orderItem`,
-                                        }}
-                                    >
-                                        Detail
-                                    </Link>
+                                    <Link to={`/orderItem`}>Detail</Link>
                                 </button>
                                 <button className="btn btn-delete">Done</button>
                             </td>
@@ -66,9 +91,7 @@ function Order_list(){
                 </tbody>
             </table>
         </div>
-
-
     );
 }
 
-export default Order_list
+export default Order_list;

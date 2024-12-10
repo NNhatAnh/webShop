@@ -9,6 +9,12 @@ const API = axios.create({
 
 class adminService {
     
+    // API to take user information base on the userID
+    static getUser = async (userID) => {
+        const response = await API.get(`/${userID}`);
+        return response.data;
+    };
+
     // API for login
     static login = async (username, password) => {
         const response = await API.post("/signin", { username, password });

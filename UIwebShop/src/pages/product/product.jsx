@@ -74,16 +74,6 @@ export default function Product() {
         }
     };
 
-    const handleQuantityChange = (index, newQuantity) => {
-        const updatedCart = [...cartItems];
-        if (newQuantity >= 1) {
-            updatedCart[index].quantity = newQuantity;
-            setCartItems(updatedCart);
-        } else if (newQuantity === 0) {
-            handleRemoveItem(index);
-        }
-    };
-
     const handleRemoveItem = (index) => {
         const updatedCart = [...cartItems];
         const item = updatedCart[index];
