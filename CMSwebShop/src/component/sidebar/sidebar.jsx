@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from "react-router-dom";
 import './sidebar.css';
 
 function Sidebar() {
@@ -29,7 +30,9 @@ function Sidebar() {
                             Đơn Hàng <i className="fa-solid fa-chevron-down"></i>
                         </a>
                         <ul className={`sub-menu ${openMenu.orders ? 'open' : ''}`}>
-                            <li><a href="#">Danh sách</a></li>
+                            <li>
+                                <Link to="/orderList">Danh sách</Link>
+                            </li>
                         </ul>
                     </li>
                     <li>
@@ -41,8 +44,12 @@ function Sidebar() {
                             Sản Phẩm <i className="fa-solid fa-chevron-down"></i>
                         </a>
                         <ul className={`sub-menu ${openMenu.products ? 'open' : ''}`}>
-                            <li><a href="#">Danh sách</a></li>
-                            <li><a href="#">Thêm</a></li>
+                            <li>
+                                <Link to="/productList">Danh sách</Link>
+                            </li>
+                            <li>
+                                <Link to="/productAdd">Thêm</Link>
+                            </li>
                         </ul>
                     </li>
                 </ul>

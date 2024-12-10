@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import "./product_edit.css";
 
 const Product_edit = () => {
+  const location = useLocation();
   const [formData, setFormData] = useState({
     product: "",
     image: null,
@@ -56,63 +58,20 @@ const Product_edit = () => {
   };
 
   useEffect(() => {
-    // Khởi tạo CKEditor 5 cho title
-    if (window.ClassicEditor) {
-      window.ClassicEditor.create(document.querySelector("#title"), {
-        toolbar: [
-          "bold",
-          "italic",
-          "underline",
-          "link",
-          "bulletedList",
-          "numberedList",
-        ],
-      })
-        .then((editor) => {
-          editor.model.document.on("change:data", () => {
-            const value = editor.getData();
-            handleEditorChange("title", value);
-          });
-        })
-        .catch((error) => {
-          console.error("There was a problem initializing CKEditor:", error);
-        });
-
-      // Khởi tạo CKEditor 5 cho brand
-      window.ClassicEditor.create(document.querySelector("#brand"), {
-        toolbar: [
-          "bold",
-          "italic",
-          "underline",
-          "link",
-          "bulletedList",
-          "numberedList",
-        ],
-      })
-        .then((editor) => {
-          editor.model.document.on("change:data", () => {
-            const value = editor.getData();
-            handleEditorChange("brand", value);
-          });
-        })
-        .catch((error) => {
-          console.error("There was a problem initializing CKEditor:", error);
-        });
+    if (location.state && location.state.product) {
+      const product = location.state.product;
+      console.log(product)
+      setFormData({
+        product: product.name || "",
+        image: null, 
+        imagePreview: product.image || "",
+        title: product.title || "",
+        brand: product.brand || "",
+        quantity: product.quantity || "",
+        category: product.category || "",
+      });
     }
-
-    return () => {
-      // Cleanup CKEditor khi component unmount
-      if (window.ClassicEditor) {
-        const editors = document.querySelectorAll(".ck-editor__editable");
-        editors.forEach((editor) => {
-          const instance = editor.ckeditorInstance;
-          if (instance) {
-            instance.destroy();
-          }
-        });
-      }
-    };
-  }, []);
+  }, [location.state]);
 
   return (
     <div className="product-add-container">
@@ -140,19 +99,21 @@ const Product_edit = () => {
         </div>
         <div className="form-group">
           <label>Title:</label>
-          <textarea
-            id="title"
+          <input
+            type="text"
+            name="product"
             value={formData.title}
-            onChange={() => {}}
-          ></textarea>
+            onChange={handleChange}
+          />
         </div>
         <div className="form-group">
           <label>Brand:</label>
-          <textarea
-            id="brand"
+          <input
+            type="text"
+            name="product"
             value={formData.brand}
-            onChange={() => {}}
-          ></textarea>
+            onChange={handleChange}
+          />
         </div>
         <div className="form-group">
           <label>Quantity:</label>
@@ -174,10 +135,10 @@ const Product_edit = () => {
         </div>
         <div className="form-actions">
           <button type="button" onClick={handleUpdate}>
-            Cập nhật
+            Update
           </button>
           <button type="button" onClick={handleCancel}>
-            Hủy
+            Cancel
           </button>
         </div>
       </form>

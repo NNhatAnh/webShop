@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./product_add.css";
 
 const Product_add = () => {
@@ -28,73 +28,10 @@ const Product_add = () => {
     }
   };
 
-  const handleEditorChange = (name, value) => {
-    setFormData({ ...formData, [name]: value });
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Form data submitted:", formData);
   };
-
-  useEffect(() => {
-    // Khởi tạo CKEditor 5 cho title
-    if (window.ClassicEditor) {
-      window.ClassicEditor.create(document.querySelector("#title"), {
-        toolbar: [
-          "bold",
-          "italic",
-          "underline",
-          "link",
-          "bulletedList",
-          "numberedList",
-        ],
-      })
-        .then((editor) => {
-          editor.model.document.on("change:data", () => {
-            const value = editor.getData();
-            handleEditorChange("title", value);
-          });
-        })
-        .catch((error) => {
-          console.error("There was a problem initializing CKEditor:", error);
-        });
-
-      // Khởi tạo CKEditor 5 cho brand
-      window.ClassicEditor.create(document.querySelector("#brand"), {
-        toolbar: [
-          "bold",
-          "italic",
-          "underline",
-          "link",
-          "bulletedList",
-          "numberedList",
-        ],
-      })
-        .then((editor) => {
-          editor.model.document.on("change:data", () => {
-            const value = editor.getData();
-            handleEditorChange("brand", value);
-          });
-        })
-        .catch((error) => {
-          console.error("There was a problem initializing CKEditor:", error);
-        });
-    }
-
-    return () => {
-      // Cleanup CKEditor khi component unmount
-      if (window.ClassicEditor) {
-        const editors = document.querySelectorAll(".ck-editor__editable");
-        editors.forEach((editor) => {
-          const instance = editor.ckeditorInstance;
-          if (instance) {
-            instance.destroy();
-          }
-        });
-      }
-    };
-  }, []);
 
   return (
     <div className="product-add-container">
@@ -122,19 +59,21 @@ const Product_add = () => {
         </div>
         <div className="form-group">
           <label>Title:</label>
-          <textarea
-            id="title"
+          <input
+            type="text"
+            name="title"
             value={formData.title}
-            onChange={() => {}}
-          ></textarea>
+            onChange={handleChange}
+          />
         </div>
         <div className="form-group">
           <label>Brand:</label>
-          <textarea
-            id="brand"
+          <input
+            type="text"
+            name="brand"
             value={formData.brand}
-            onChange={() => {}}
-          ></textarea>
+            onChange={handleChange}
+          />
         </div>
         <div className="form-group">
           <label>Quantity:</label>

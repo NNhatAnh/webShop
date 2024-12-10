@@ -1,12 +1,14 @@
-.product-add-container {
+  .product-add-container {
     padding: 20px;
-    /* max-width: ; */
     width: 80%;
-    margin: 50px 255px 0;
+    margin: 50px auto; /* Căn giữa ngang */
     background: #f9f9f9;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-height: 80vh; /* Giới hạn chiều cao */
+    overflow-y: auto; /* Thêm thanh cuộn dọc */
   }
+
   
   .product-add-container h2 {
     text-align: center;

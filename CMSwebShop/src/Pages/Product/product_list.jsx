@@ -1,8 +1,33 @@
 import './product.css'
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import productService from '../../component/services/productService';
+
 function Product_list(){
+
+    const [products, setProducts] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [selectedProduct, setSelectedProduct] = useState(null);
+
+    async function listProduct() {
+        try {
+            const data = await productService.listProduct();
+            setProducts(data);
+            setLoading(false);
+        } catch (err) {
+            setError(err.message);
+            setLoading(false);
+        }
+    }
+
+    useEffect(() => {
+        listProduct();
+    }, []);
+
     return(
         <div className="admin-content-main-content">
-            <h2>Danh Sách Sản Phẩm</h2>
+            <h2>List Product</h2>
             <table className="admin-table">
                 <thead>
                     <tr>
@@ -11,42 +36,40 @@ function Product_list(){
                         <th>Image</th>
                         <th>Title</th>
                         <th>Brand</th>
-                        <th>Quantity</th>
                         <th>Categori</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Sản phẩm A</td>
-                        <td>
-                            <img src="https://via.placeholder.com/50" alt="Sản phẩm A" className="product-image" />
-                        </td>
-                        <td>Điện thoại</td>
-                        <td>Samsung</td>
-                        <td>100</td>
-                        <td>Điện tử</td>
-                        <td>
-                            <button className="btn btn-edit">Sửa</button>
-                            <button className="btn btn-delete">Xóa</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Sản phẩm B</td>
-                        <td>
-                            <img src="https://via.placeholder.com/50" alt="Sản phẩm B" className="product-image" />
-                        </td>
-                        <td>Laptop</td>
-                        <td>Asus</td>
-                        <td>50</td>
-                        <td>Công nghệ</td>
-                        <td>
-                            <button className="btn btn-edit">Sửa</button>
-                            <button className="btn btn-delete">Xóa</button>
-                        </td>
-                    </tr>
+                {products.map((product) => (
+                        <tr key={product.id}>
+                            <td>{product.id}</td>
+                            <td>{product.name}</td>
+                            <td>
+                                <img
+                                    src={product.image}
+                                    alt={product.name}
+                                    className="product-image"
+                                />
+                            </td>
+                            <td>{product.title}</td>
+                            <td>{product.brand}</td>
+                            <td>{product.category}</td>
+                            <td>
+                                <button className="btn btn-edit">
+                                    <Link
+                                        to={{
+                                            pathname: `/productEdit/${product.id}`,
+                                            state: { product }, // Truyền dữ liệu sản phẩm qua state
+                                        }}
+                                    >
+                                        Edit
+                                    </Link>
+                                </button>
+                                <button className="btn btn-delete">Delete</button>
+                            </td>
+                        </tr>
+                    ))}
                 </tbody>
             </table>
         </div>
