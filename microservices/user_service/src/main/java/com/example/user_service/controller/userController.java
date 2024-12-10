@@ -33,9 +33,16 @@ public class userController {
     }
 
     // User information
-    @GetMapping("{username}")
+    @GetMapping("/{username:[a-zA-Z]+}")
     public Optional<UserModel> userDetial(@PathVariable String username) {
         Optional<UserModel> user = userRepository.findByUsername(username);
+        return user;
+    }
+
+    // API to check user
+    @GetMapping("{userID:\\d+}")
+    public List<UserModel> checkUser(@PathVariable int userID) {
+        List<UserModel> user = userRepository.findByID(userID);
         return user;
     }
 
@@ -48,7 +55,7 @@ public class userController {
             String password = body.get("password");
 
             userService.signUp(email, username, password);
-            
+
             return new ResponseEntity<>("User registered successfully!", HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>("Error: " + e.getMessage(), HttpStatus.BAD_REQUEST);
