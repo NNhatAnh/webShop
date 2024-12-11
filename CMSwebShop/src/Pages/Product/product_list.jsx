@@ -1,7 +1,7 @@
 import './product.css'
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import productService from '../../component/services/productService';
+import productService from '../../services/productService';
 
 function Product_list(){
 
@@ -37,6 +37,7 @@ function Product_list(){
                         <th>Title</th>
                         <th>Brand</th>
                         <th>Categori</th>
+                        <th>Price</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -55,16 +56,17 @@ function Product_list(){
                             <td>{product.title}</td>
                             <td>{product.brand}</td>
                             <td>{product.category}</td>
+                            <td>{product.price}</td>
                             <td>
                                 <button className="btn btn-edit">
-                                    <Link
-                                        to={{
-                                            pathname: `/productEdit/${product.id}`,
-                                            state: { product }, // Truyền dữ liệu sản phẩm qua state
-                                        }}
+                                <Link
+                                    to="/productEdit"
+                                    onClick={() => {
+                                        sessionStorage.setItem("selectedProduct", JSON.stringify(product));
+                                    }}
                                     >
-                                        Edit
-                                    </Link>
+                                    Edit
+                                </Link>
                                 </button>
                                 <button className="btn btn-delete">Delete</button>
                             </td>

@@ -8,7 +8,7 @@ import Product_list from './Pages/Product/product_list';
 import Order_list from './Pages/OrderList/order_list';
 import Product_add from './Pages/Product/product_add';
 import Product_edit from './Pages/Product/product_edit';
-import Order_item from './Pages/OrderList/order_item';
+import Order_item from './Pages/OrderItem/order_item';
 import Login from './component/login/login_admin';
 
 function App() {
@@ -33,9 +33,9 @@ function App() {
           <Routes>
             <Route exact path="/productList" element={<Product_list />} />
             <Route exact path="/productAdd" element={<Product_add />} />
-            <Route exact path="/productEdit/:id" element={<Product_edit />} />
+            <Route exact path="/productEdit" element={<Product_edit />} />
             <Route exact path="/orderList" element={<Order_list />} />
-            <Route exact path="/orderItem" element={<Order_item />} />
+            <Route exact path="/orderItem/:id" element={<Order_item />} />
           </Routes>
           <Footer />
         </Router>
