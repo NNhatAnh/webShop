@@ -1,7 +1,7 @@
 import './order_list.css';
 import React, { useState, useEffect } from 'react';
-import orderService from '../../component/services/orderService';
-import adminService from '../../component/services/adminService';
+import orderService from '../../services/orderService';
+import adminService from '../../services/adminService';
 import { Link } from 'react-router-dom';
 
 function Order_list() {
@@ -82,7 +82,7 @@ function Order_list() {
                             <td>{order.timeOrderFormatted}</td>
                             <td>
                                 <button className="btn btn-edit">
-                                    <Link to={`/orderItem`}>Detail</Link>
+                                    <Link to={`/orderItem/${order.id}`}>Detail</Link>
                                 </button>
                                 <button className="btn btn-delete">Done</button>
                             </td>

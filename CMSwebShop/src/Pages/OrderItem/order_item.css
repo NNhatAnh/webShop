@@ -1,0 +1,77 @@
+.admin-content-main-content {
+    margin-left: 250px; /* Giữ khoảng trống cho sidebar */
+    padding: 20px;
+    box-sizing: border-box;
+    min-height: calc(100vh - 120px); /* Chiều cao trừ header + footer */
+    overflow: hidden; /* Đảm bảo không có cuộn ngang toàn trang */
+    padding-top: 50px;
+}
+
+.admin-table-wrapper {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    height: 100%; /* Chiếm toàn bộ không gian khả dụng */
+    display: flex;
+    flex-direction: column;
+}
+
+.table-scrollable {
+    max-height: calc(100vh - 200px); /* Tính toán vùng scroll trừ khoảng header + footer */
+    overflow-y: auto;
+    border: 1px solid #ddd; /* Thêm viền cho vùng cuộn */
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.admin-table th,
+.admin-table td {
+    border: 1px solid #ddd;
+    text-align: left;
+    padding: 10px;
+}
+
+.admin-table th {
+    background-color: #f4f4f4;
+    position: sticky;
+    top: 0; /* Giữ cố định tiêu đề khi cuộn */
+    z-index: 10; /* Đảm bảo header bảng nằm trên */
+}
+
+.admin-table tr:hover {
+    background-color: #f9f9f9;
+}
+
+.admin-table .btn {
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+.admin-table .btn-edit {
+    background-color: #4CAF50;
+    color: white;
+    margin-right: 5px;
+}
+
+.admin-table .btn-delete {
+    background-color: #f44336;
+    color: white;
+}
+
+.admin-table .btn:hover {
+    opacity: 0.8;
+}
+
+.admin-table .product-image {
+    width: 50px; /* Chiều rộng của ảnh */
+    height: 50px; /* Chiều cao của ảnh */
+    object-fit: cover; /* Đảm bảo ảnh hiển thị đẹp trong khung */
+    border-radius: 5px; /* Tùy chọn: Bo tròn góc */
+    border: 1px solid #ddd; /* Tùy chọn: Thêm viền ảnh */
+}

@@ -35,7 +35,6 @@ class orderService {
     static listOrder = async () => {
         try {
             const response = await API.get("/listOrder");
-            console.log("Response:", response.data);
             return response.data;
         } catch (error) {
             console.error(error);

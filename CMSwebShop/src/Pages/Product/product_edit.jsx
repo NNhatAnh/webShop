@@ -10,8 +10,8 @@ const Product_edit = () => {
     imagePreview: "",
     title: "",
     brand: "",
-    quantity: "",
     category: "",
+    price: ""
   });
 
   const handleChange = (e) => {
@@ -30,48 +30,28 @@ const Product_edit = () => {
     }
   };
 
-  const handleEditorChange = (name, value) => {
-    setFormData({ ...formData, [name]: value });
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Form data submitted:", formData);
-  };
-
-  const handleUpdate = () => {
-    console.log("Update button clicked");
-    // Logic for updating can be added here
-  };
-
-  const handleCancel = () => {
-    setFormData({
-      product: "",
-      image: null,
-      imagePreview: "",
-      title: "",
-      brand: "",
-      quantity: "",
-      category: "",
-    });
-    console.log("Form reset (cancelled)");
+    // Thực hiện gọi API cập nhật dữ liệu ở đây
   };
 
   useEffect(() => {
-    if (location.state && location.state.product) {
-      const product = location.state.product;
-      console.log(product)
+    const savedProduct = sessionStorage.getItem("selectedProduct");
+    if (savedProduct) {
+      const product = JSON.parse(savedProduct);
       setFormData({
         product: product.name || "",
-        image: null, 
         imagePreview: product.image || "",
         title: product.title || "",
         brand: product.brand || "",
         quantity: product.quantity || "",
         category: product.category || "",
+        price: product.price || "",
       });
     }
-  }, [location.state]);
+  }, []);
+  
 
   return (
     <div className="product-add-container">
@@ -101,7 +81,7 @@ const Product_edit = () => {
           <label>Title:</label>
           <input
             type="text"
-            name="product"
+            name="title" 
             value={formData.title}
             onChange={handleChange}
           />
@@ -110,17 +90,8 @@ const Product_edit = () => {
           <label>Brand:</label>
           <input
             type="text"
-            name="product"
+            name="brand" 
             value={formData.brand}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="form-group">
-          <label>Quantity:</label>
-          <input
-            type="number"
-            name="quantity"
-            value={formData.quantity}
             onChange={handleChange}
           />
         </div>
@@ -133,11 +104,18 @@ const Product_edit = () => {
             onChange={handleChange}
           />
         </div>
+        <div className="form-group">
+          <label>Price:</label>
+          <input
+            type="text"
+            name="price"
+            value={formData.price}
+            onChange={handleChange}
+          />
+        </div>
         <div className="form-actions">
-          <button type="button" onClick={handleUpdate}>
-            Update
-          </button>
-          <button type="button" onClick={handleCancel}>
+          <button type="submit">Update</button>
+          <button type="button" onClick={() => console.log("Cancelled")}>
             Cancel
           </button>
         </div>

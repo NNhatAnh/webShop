@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./login_admin.css";
 import useAuth from "../hooks/useAuth";
-import adminService from "../services/adminService.jsx";
-
+import adminService from "../../services/adminService.jsx";
 export default function Login({ onLoginSuccess }) {
   const [formData, setFormData] = useState({
     username: "",
