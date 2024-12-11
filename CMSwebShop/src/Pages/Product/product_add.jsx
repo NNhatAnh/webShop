@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./product_add.css";
+import productService from "../../services/productService";
 
 const Product_add = () => {
   const [formData, setFormData] = useState({
@@ -8,9 +9,12 @@ const Product_add = () => {
     imagePreview: "",
     title: "",
     brand: "",
-    quantity: "",
+    price: "",
     category: "",
   });
+
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -28,10 +32,23 @@ const Product_add = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form data submitted:", formData);
-  };
+    const formDataObject = new FormData();
+    formDataObject.append("product", formData.product);
+    formDataObject.append("image", formData.image);
+    formDataObject.append("title", formData.title);
+    formDataObject.append("brand", formData.brand);
+    formDataObject.append("price", formData.price);
+    formDataObject.append("category", formData.category);
+    
+    try {
+      const response = await productService.addItem(formDataObject);
+      console.log("Product added successfully:", response);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };  
 
   return (
     <div className="product-add-container">
@@ -76,11 +93,11 @@ const Product_add = () => {
           />
         </div>
         <div className="form-group">
-          <label>Quantity:</label>
+          <label>Price:</label>
           <input
             type="number"
-            name="quantity"
-            value={formData.quantity}
+            name="price"
+            value={formData.price}
             onChange={handleChange}
           />
         </div>
@@ -93,8 +110,11 @@ const Product_add = () => {
             onChange={handleChange}
           />
         </div>
-        <button type="submit">Submit</button>
+        <button type="submit" disabled={loading}>
+          {loading ? "Submitting..." : "Submit"}
+        </button>
       </form>
+      {message && <p className="message">{message}</p>}
     </div>
   );
 };
