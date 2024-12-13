@@ -8,7 +8,6 @@ export default function Login({ onLoginSuccess }) {
     password: "",
   });
   const [errorMessage, setErrorMessage] = useState("");
-  const [admin, setAdmin] = useState(null);
 
 
   useEffect(() => {
@@ -16,10 +15,20 @@ export default function Login({ onLoginSuccess }) {
     if (storedAdmin) {
       const decodedToken = useAuth.DecodeToken(storedAdmin);
       if (decodedToken?.data) {
-        onLoginSuccess(); // Nếu đã đăng nhập, báo hiệu thành công
+        if (checkExpired(decodedToken.exp)) {
+          alert("Admin Token expired !");
+          localStorage.removeItem("admin");
+        } else {
+          onLoginSuccess(); // Nếu đã đăng nhập, báo hiệu thành công
+        }
       }
     }
   }, [onLoginSuccess]);
+
+  function checkExpired(date) {
+    const currentDate = Math.floor(Date.now() / 1000);
+    return currentDate > date;
+  }
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -41,11 +50,10 @@ export default function Login({ onLoginSuccess }) {
       const userRole = useAuth.getUserRole(response);
       if (userRole === "admin") {
         localStorage.setItem("admin", JSON.stringify(response));
-        setAdmin(response);
 
         // Báo hiệu đăng nhập thành công
         onLoginSuccess();
-      }else {
+      } else {
         setErrorMessage("Account without administrator rights");
       }
 

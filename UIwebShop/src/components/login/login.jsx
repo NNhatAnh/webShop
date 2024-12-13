@@ -13,9 +13,19 @@ export default function Login({ closePopup }) {
         const storedUser = localStorage.getItem("user");
         if (storedUser) {
             const decodedToken = useAuth.DecodeToken(storedUser);
-            setUser(decodedToken?.data || null);
+            if (checkExpired(decodedToken.exp)) {
+                alert("User token expired !");
+                localStorage.removeItem("user");
+            } else {
+                setUser(decodedToken?.data || null);
+            }
         }
     }, []);
+
+    function checkExpired(date) {
+        const currentDate = Math.floor(Date.now() / 1000);
+        return currentDate > date;
+    }
 
     const toggleForm = () => {
         setIsLogin(!isLogin);

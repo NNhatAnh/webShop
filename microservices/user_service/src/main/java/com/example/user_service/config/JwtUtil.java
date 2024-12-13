@@ -30,7 +30,7 @@ public class JwtUtil {
         return Jwts.builder()
                 .claim("data", data) 
                 .setIssuedAt(new Date()) 
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60))  
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24))  
                 .serializeToJsonWith(new JacksonSerializer<>(getObjectMapper())) 
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256) 
                 .compact();
