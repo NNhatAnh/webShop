@@ -1,28 +1,27 @@
 /* Sidebar tổng thể */
 .admin-sidebar {
-    position: fixed; /* Ghim sidebar ở bên trái */
+    position: fixed; 
     left: 0;
     top: 0;
-    width: 250px; /* Độ rộng sidebar */
-    height: 100vh; /* Chiều cao full màn hình */
-    background-color: #2c3e50; /* Màu nền */
-    color: #ecf0f1; /* Màu chữ */
-    overflow-y: auto; /* Cuộn khi nội dung vượt quá chiều cao */
+    width: 250px;
+    height: 100vh; 
+    background-color: #2c3e50; 
+    color: #ecf0f1; 
+    overflow-y: auto; 
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-    z-index: 1000; /* Đảm bảo sidebar luôn trên các thành phần khác */
+    z-index: 1000; 
 }
 
 /* Phần logo ở đầu sidebar */
 .admin-sidebar-top {
     text-align: center;
-    padding: 20px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .admin-sidebar-top img {
-    max-width: 80%;
-    height: auto;
-    border-radius: 50%; /* Làm tròn logo nếu cần */
+    max-width: 45%;
+    height: 50%;
+    border-radius: 4px;
 }
 
 /* Danh sách menu chính */
@@ -52,19 +51,19 @@
 
 /* Hiệu ứng hover cho liên kết */
 .admin-sidebar-content ul li > a:hover {
-    background-color: #34495e; /* Màu nền khi hover */
+    background-color: #34495e; 
 }
 
 /* Menu con (mặc định ẩn) */
 .sub-menu {
-    display: none; /* Ẩn menu con khi chưa click */
-    background-color: #34495e; /* Màu nền menu con */
+    display: none; 
+    background-color: #34495e; 
     padding-left: 20px;
 }
 
 /* Hiển thị menu con khi có trạng thái mở */
 .sub-menu.open {
-    display: block; /* Hiển thị menu con */
+    display: block; 
 }
 
 /* Liên kết trong menu con */

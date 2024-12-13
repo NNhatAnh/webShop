@@ -1,0 +1,68 @@
+/* PoliciesPage.css */
+
+/* Cấu trúc chính của trang chính sách */
+.policies-page-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Tiêu đề của trang chính sách */
+  .policies-page-title {
+    text-align: center;
+    font-size: 32px;
+    margin-bottom: 40px;
+    color: #333;
+  }
+  
+  /* Các phần chính sách */
+  .policy-section-container {
+    margin-bottom: 30px;
+  }
+  
+  /* Tiêu đề của mỗi phần chính sách */
+  .policy-section-title {
+    font-size: 24px;
+    color: #f1c40f;
+    margin-bottom: 10px;
+  }
+  
+  /* Nội dung mỗi phần chính sách */
+  .policy-section-content {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #555;
+  }
+  
+  /* Danh sách các điều khoản */
+  .policy-list {
+    list-style-type: disc;
+    margin-left: 20px;
+    font-size: 16px;
+    color: #555;
+  }
+  
+  .policy-list li {
+    margin-bottom: 5px;
+  }
+  
+  /* Responsive cho các màn hình nhỏ */
+  @media (max-width: 768px) {
+    .policies-page-container {
+      padding: 15px;
+    }
+  
+    .policies-page-title {
+      font-size: 28px;
+    }
+  
+    .policy-section-title {
+      font-size: 22px;
+    }
+  
+    .policy-section-content {
+      font-size: 14px;
+    }
+  }
+  

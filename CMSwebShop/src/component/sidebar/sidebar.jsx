@@ -17,7 +17,7 @@ function Sidebar() {
     return (
         <div className="admin-sidebar">
             <div className="admin-sidebar-top">
-                <img src="../assets/imgs/logo.jpg" alt="Logo" />
+                <img src="../../images/Rolex_logo.svg" alt="Logo" />
             </div>
             <div className="admin-sidebar-content">
                 <ul>

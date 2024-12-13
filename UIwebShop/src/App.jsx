@@ -8,6 +8,8 @@ import Cart from './components/cart/cart';
 import Home from './pages/home/home';
 import Product from './pages/product/product';
 import { useState } from 'react';
+import Contact from './pages/contact/contact';
+import Policy from './pages/policy/policy';
 
 function App() {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
@@ -34,8 +36,10 @@ function App() {
       <Router>
         <Header openLoginPopup={openLoginPopup} openCartPopup={openCartPopup} />
         <Routes>
-          <Route exact path="/" element={<Home />} />
-          <Route exact path="/product" element={<Product />} />
+          <Route exact path="/product" element={<Home />} />
+          <Route exact path="/" element={<Product />} />
+          <Route exact path="/policy" element={<Policy />} />
+          <Route exact path="/contact" element={<Contact />} />
         </Routes>
         <Footer />
       </Router>

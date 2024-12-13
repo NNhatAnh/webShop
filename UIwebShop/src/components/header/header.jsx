@@ -9,7 +9,7 @@ export default function Header({ openLoginPopup, openCartPopup }) {
         <section className="header">
             <div className="container">
                 <div className="logo">
-                    <img src={logoHeader} alt="Logo" />
+                    <img src="../../images/Rolex_logo.svg" alt="Logo" />
                 </div>
                 <div className="navbar">
                     <ul className="navList">
@@ -20,7 +20,7 @@ export default function Header({ openLoginPopup, openCartPopup }) {
                             <Link to="/product">Product</Link>
                         </li>
                         <li className="navLink">
-                            <Link to="/accessory">Accessory</Link>
+                            <Link to="/policy">Policy</Link>
                         </li>
                         <li className="navLink">
                             <Link to="/contact">Contact</Link>

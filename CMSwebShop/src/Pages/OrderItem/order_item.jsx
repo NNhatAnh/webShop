@@ -22,7 +22,7 @@ function Order_item() {
                         const productData = await productService.productDetail(item.product);
                         return {
                             ...item,
-                            productName: productData ? productData.name : 'Unknown', // Gán tên sản phẩm
+                            productName: productData[0] ? productData[0].name : 'Unknown', 
                         };
                     } catch (err) {
                         return {
@@ -66,7 +66,7 @@ function Order_item() {
                     {orderDetail.map((item) => (
                         <tr key={item.id}>
                             <td>{item.id}</td>
-                            <td>{item.productName}</td> {/* Hiển thị tên sản phẩm */}
+                            <td>{item.productName}</td> 
                             <td>{item.quantity}</td>
                             <td>{item.price}</td>
                         </tr>
