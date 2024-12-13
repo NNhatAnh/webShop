@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import "./product_edit.css";
+import productService from "../../services/productService";
 
 const Product_edit = () => {
-  const location = useLocation();
+  const { productID } = useParams();
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     product: "",
     image: null,
@@ -30,28 +33,48 @@ const Product_edit = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form data submitted:", formData);
-    // Thực hiện gọi API cập nhật dữ liệu ở đây
+    try {
+      const updateData = new FormData();
+      updateData.append("product", formData.product);
+      updateData.append("title", formData.title);
+      updateData.append("brand", formData.brand);
+      updateData.append("price", formData.price);
+      updateData.append("category", formData.category);
+      if (formData.image) {
+        updateData.append("image", formData.image);
+      }
+
+      const response = await productService.updateProduct(updateData, productID);
+      alert(response);
+      navigate("/productList");
+    } catch (error) {
+      console.error("Error updating product:", error);
+    }
   };
 
   useEffect(() => {
-    const savedProduct = sessionStorage.getItem("selectedProduct");
-    if (savedProduct) {
-      const product = JSON.parse(savedProduct);
-      setFormData({
-        product: product.name || "",
-        imagePreview: product.image || "",
-        title: product.title || "",
-        brand: product.brand || "",
-        quantity: product.quantity || "",
-        category: product.category || "",
-        price: product.price || "",
-      });
-    }
-  }, []);
-  
+    const fetchProduct = async () => {
+      try {
+        const response = await productService.productDetail(productID);
+        const product = response || {};
+
+        setFormData({
+          product: product.name || "",
+          imagePreview: product.image || "",
+          title: product.title || "",
+          brand: product.brand || "",
+          category: product.category || "",
+          price: product.price || "",
+        });
+      } catch (error) {
+        console.error("Error fetching product:", error);
+      }
+    };
+
+    fetchProduct();
+  }, [productID]);
 
   return (
     <div className="product-add-container">
@@ -81,7 +104,7 @@ const Product_edit = () => {
           <label>Title:</label>
           <input
             type="text"
-            name="title" 
+            name="title"
             value={formData.title}
             onChange={handleChange}
           />
@@ -90,7 +113,7 @@ const Product_edit = () => {
           <label>Brand:</label>
           <input
             type="text"
-            name="brand" 
+            name="brand"
             value={formData.brand}
             onChange={handleChange}
           />

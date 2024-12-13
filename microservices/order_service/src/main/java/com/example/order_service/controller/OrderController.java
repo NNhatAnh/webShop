@@ -3,6 +3,7 @@ package com.example.order_service.controller;
 import com.example.order_service.module.OrderItemModel;
 import com.example.order_service.module.OrderItemRequest;
 import com.example.order_service.module.OrderListModel;
+import com.example.order_service.module.OrderListModel.Status;
 import com.example.order_service.repository.OrderItemRepo;
 import com.example.order_service.repository.OrderListRepo;
 import com.example.order_service.service.OrderService;
@@ -21,8 +22,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
@@ -30,13 +33,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 @CrossOrigin(origins = "http://localhost:5173")
 public class OrderController {
     @Autowired
-    private OrderItemRepo orderItemRepo;
+    private OrderItemRepo OrderItemRepo;
 
     @Autowired
-    private OrderListRepo orderListRepo;
+    private OrderListRepo OrderListRepo;
 
     @Autowired
-    private OrderService orderService;
+    private OrderService OrderService;
 
     @GetMapping("/")
     public String orderHome() {
@@ -46,13 +49,13 @@ public class OrderController {
     // Fetch all orders
     @GetMapping("/listOrder")
     public List<OrderListModel> listOrder() {
-        return orderListRepo.findAll();
+        return OrderListRepo.findAll();
     }
 
     // Fetch orders for a specific user
     @GetMapping("/user/{userID}")
     public ResponseEntity<List<OrderListModel>> userOrder(@PathVariable int userID) {
-        List<OrderListModel> userOrder = orderListRepo.findByUser(userID);
+        List<OrderListModel> userOrder = OrderListRepo.findByUser(userID);
         if (userOrder.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body(null);
@@ -63,7 +66,7 @@ public class OrderController {
     // Fetch details of a specific order
     @GetMapping("/{orderID}")
     public ResponseEntity<List<OrderItemModel>> orderDetail(@PathVariable int orderID) {
-        List<OrderItemModel> orderDetail = orderItemRepo.orderDetail(orderID);
+        List<OrderItemModel> orderDetail = OrderItemRepo.orderDetail(orderID);
         if (orderDetail.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body(null);
@@ -75,7 +78,7 @@ public class OrderController {
     public ResponseEntity<Map<String, Object>> createOrder(@RequestBody Map<String, Integer> request) {
         try {
             int userId = request.get("user_id");
-            Integer orderId = orderService.createOrder(userId);
+            Integer orderId = OrderService.createOrder(userId);
 
             Map<String, Object> response = Map.of("order_id", orderId);
             return new ResponseEntity<>(response, HttpStatus.CREATED);
@@ -89,7 +92,7 @@ public class OrderController {
     public ResponseEntity<Map<String, Object>> addOrderItems(@PathVariable Integer orderID,
             @RequestBody List<OrderItemRequest> items) {
         try {
-            orderService.addItemsToOrder(orderID, items);
+            OrderService.addItemsToOrder(orderID, items);
             return new ResponseEntity<>(Map.of("message", "Items added successfully."), HttpStatus.OK);
         } catch (EntityNotFoundException e) {
             return new ResponseEntity<>(Map.of("message", e.getMessage()), HttpStatus.NOT_FOUND);
@@ -102,14 +105,14 @@ public class OrderController {
     @DeleteMapping("/delete/{orderID}")
     public ResponseEntity<String> deleteOrder(@PathVariable int orderID) {
         try {
-            if (!orderListRepo.existsById(orderID)) {
+            if (!OrderListRepo.existsById(orderID)) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Order not found.");
             }
 
-            List<OrderItemModel> deleteItems = orderItemRepo.orderDetail(orderID);
-            orderItemRepo.deleteAll(deleteItems);
+            List<OrderItemModel> deleteItems = OrderItemRepo.orderDetail(orderID);
+            OrderItemRepo.deleteAll(deleteItems);
 
-            orderListRepo.deleteById(orderID);
+            OrderListRepo.deleteById(orderID);
             return ResponseEntity.ok("Order and its items have been deleted successfully.");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -117,4 +120,16 @@ public class OrderController {
         }
     }
 
+    @PutMapping("/status/{orderID}")
+    public ResponseEntity<String> updateOrderStatus(@PathVariable int orderID) {
+        try {
+            String response = OrderService.orderAction(orderID);
+            return ResponseEntity.ok(response);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error updating order status: " + e.getMessage());
+        }
+    }
 }

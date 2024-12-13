@@ -3,6 +3,7 @@ package com.example.order_service.service;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -56,10 +57,26 @@ public class OrderService {
         OrderListRepo.save(order);
     }
 
-    // public OrderListModel deleteItem(int orderID) {
+    // public ResponseEntity<?> deleteItem(int orderID) {
     // Optional<OrderListModel> order = OrderListRepo.findById(orderID);
     // if (order.isPresent()) {
 
     // }
     // }
+
+    public String orderAction(int orderID) {
+        Optional<OrderListModel> orderSelected = OrderListRepo.findById(orderID);
+        if (orderSelected.isPresent()) {
+            OrderListModel order = orderSelected.get();
+            if (order.getStatus() == OrderListModel.Status.pending) {
+                order.setStatus(OrderListModel.Status.completed);
+            } else {
+                order.setStatus(OrderListModel.Status.pending);
+            }
+            OrderListRepo.save(order);
+            return "Order status updated to completed";
+        } else {
+            throw new EntityNotFoundException("Order not found for ID: " + orderID);
+        }
+    }
 }

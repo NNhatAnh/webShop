@@ -29,10 +29,40 @@ class productService {
             });
             return response.data;
         } catch (error) {
-            console.error("Error in addItem:", error);
+            console.error(error);
             throw error;
         }
     };
+
+    // API to update product
+    static updateProduct = async (formData, productID) => {
+        try {
+            const response = await API.put(`/update/${productID}`, formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+            });
+            return response.data;
+        } catch(error) {
+            console.error(error);
+            throw error;
+        }
+    }
+
+    // API for delete item
+    static deleteItem = async (productID) => {
+        try {
+            const response = await API.delete(`/delete/${productID}`, {
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            });
+            return response.data;
+        } catch(error) {
+            console.error(error);
+            throw error;
+        }
+    }
     
     // API to list all products
     static listProduct = async () => {

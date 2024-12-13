@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import "./product_add.css";
 import productService from "../../services/productService";
+import { useNavigate } from "react-router-dom";
 
 const Product_add = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     product: "",
     image: null,
@@ -44,7 +46,8 @@ const Product_add = () => {
     
     try {
       const response = await productService.addItem(formDataObject);
-      console.log("Product added successfully:", response);
+      alert(response);
+      navigate("/productList");
     } catch (error) {
       console.error("Error:", error);
     }

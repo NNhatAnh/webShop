@@ -32,7 +32,7 @@ public class OrderListModel {
 
     // Enum for order status
     public enum Status {
-        pending, completed, cancelled
+        pending, completed
     }
 
     // Getters and Setters

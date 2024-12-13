@@ -6,7 +6,7 @@ USE order_db;
 CREATE TABLE `order_list` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) DEFAULT NULL,
-  `status` enum('pending','completed','cancelled') DEFAULT 'pending',
+  `status` enum('pending','completed') DEFAULT 'pending',
   `total_price` decimal(10,2) DEFAULT NULL,
   `time_order` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`)

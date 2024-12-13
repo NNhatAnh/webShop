@@ -53,6 +53,22 @@ function Order_list() {
         }
     }
 
+    async function orderAction(orderID, currentStatus) {
+        try {
+            const newStatus = currentStatus === "pending" ? "completed" : "pending";
+            await orderService.orderAction(orderID, newStatus);
+            alert("Order status updated successfully!");
+
+            setOrders((prevOrders) =>
+                prevOrders.map((order) =>
+                    order.id === orderID ? { ...order, status: newStatus } : order
+                )
+            );
+        } catch (err) {
+            alert("Error updating order status: " + err.message);
+        }
+    }
+
     useEffect(() => {
         listOrderWithUsernames();
     }, []);
@@ -84,7 +100,12 @@ function Order_list() {
                                 <button className="btn btn-edit">
                                     <Link to={`/orderItem/${order.id}`}>Detail</Link>
                                 </button>
-                                <button className="btn btn-delete">Done</button>
+                                <button
+                                    className="btn btn-delete"
+                                    onClick={() => orderAction(order.id, order.status)}
+                                >
+                                    {order.status === "pending" ? "completed" : "pending"}
+                                </button>
                             </td>
                         </tr>
                     ))}

@@ -1,23 +1,35 @@
-import './product.css'
+import './product.css';
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import productService from '../../services/productService';
 
-function Product_list(){
-
+function Product_list() {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [selectedProduct, setSelectedProduct] = useState(null);
 
+    // Fetch list of products
     async function listProduct() {
         try {
             const data = await productService.listProduct();
             setProducts(data);
-            setLoading(false);
         } catch (err) {
             setError(err.message);
+        } finally {
             setLoading(false);
+        }
+    }
+
+    // Handle delete product
+    async function deleteItem(productID) {
+        if (window.confirm("Are you sure you want to delete this product?")) {
+            try {
+                await productService.deleteItem(productID);
+                setProducts((prevProducts) => prevProducts.filter(p => p.id !== productID));
+                alert("Product deleted successfully!");
+            } catch (err) {
+                alert("Error deleting product: " + err.message);
+            }
         }
     }
 
@@ -25,7 +37,15 @@ function Product_list(){
         listProduct();
     }, []);
 
-    return(
+    if (loading) {
+        return <div>Loading...</div>;
+    }
+
+    if (error) {
+        return <div>Error: {error}</div>;
+    }
+
+    return (
         <div className="admin-content-main-content">
             <h2>List Product</h2>
             <table className="admin-table">
@@ -36,13 +56,13 @@ function Product_list(){
                         <th>Image</th>
                         <th>Title</th>
                         <th>Brand</th>
-                        <th>Categori</th>
+                        <th>Category</th>
                         <th>Price</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                {products.map((product) => (
+                    {products.map((product) => (
                         <tr key={product.id}>
                             <td>{product.id}</td>
                             <td>{product.name}</td>
@@ -58,26 +78,25 @@ function Product_list(){
                             <td>{product.category}</td>
                             <td>{product.price}</td>
                             <td>
-                                <button className="btn btn-edit">
                                 <Link
-                                    to="/productEdit"
-                                    onClick={() => {
-                                        sessionStorage.setItem("selectedProduct", JSON.stringify(product));
-                                    }}
-                                    >
+                                    to={`/product/${product.id}`}
+                                    className="btn btn-edit"
+                                >
                                     Edit
                                 </Link>
+                                <button
+                                    className="btn btn-delete"
+                                    onClick={() => deleteItem(product.id)}
+                                >
+                                    Delete
                                 </button>
-                                <button className="btn btn-delete">Delete</button>
                             </td>
                         </tr>
                     ))}
                 </tbody>
             </table>
         </div>
-
-
     );
 }
 
-export default Product_list
+export default Product_list;

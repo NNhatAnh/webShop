@@ -31,6 +31,17 @@ class orderService {
         }
     }
 
+    // API to uppdate action
+    static orderAction = async (orderID) => {
+        try {
+            const response = await API.put(`/status/${orderID}`);
+            return response.data;
+        } catch(error) {
+            console.error(error);
+            throw error;
+        }
+    }
+
     // API list all order
     static listOrder = async () => {
         try {
