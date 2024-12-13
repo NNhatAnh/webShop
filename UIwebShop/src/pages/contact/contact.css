@@ -57,11 +57,7 @@
   
   .social-links a {
     text-decoration: none;
-    color: #007BFF;
-  }
-  
-  .social-links a:hover {
-    text-decoration: underline;
+    color: #fff;
   }
   
   .faq summary {

@@ -22,7 +22,7 @@ function Order_item() {
                         const productData = await productService.productDetail(item.product);
                         return {
                             ...item,
-                            productName: productData[0] ? productData[0].name : 'Unknown', 
+                            productName: productData ? productData.name : 'Unknown', 
                         };
                     } catch (err) {
                         return {

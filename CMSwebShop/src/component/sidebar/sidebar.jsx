@@ -31,7 +31,7 @@ function Sidebar() {
                         </a>
                         <ul className={`sub-menu ${openMenu.orders ? 'open' : ''}`}>
                             <li>
-                                <Link to="/orderList">Danh sách</Link>
+                                <Link to="/">Danh sách</Link>
                             </li>
                         </ul>
                     </li>

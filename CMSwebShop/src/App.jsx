@@ -55,7 +55,7 @@ function App() {
             <Route exact path="/productList" element={<Product_list />} />
             <Route exact path="/productAdd" element={<Product_add />} />
             <Route exact path="/product/:productID" element={<Product_edit />} />
-            <Route exact path="/orderList" element={<Order_list />} />
+            <Route exact path="/" element={<Order_list />} />
             <Route exact path="/orderItem/:id" element={<Order_item />} />
           </Routes>
           <Footer />

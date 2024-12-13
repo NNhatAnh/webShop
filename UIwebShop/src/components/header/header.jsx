@@ -29,9 +29,6 @@ export default function Header({ openLoginPopup, openCartPopup }) {
                 </div>
                 <div className="subHeader">
                     <ul className="subList">
-                        <li className="search">
-                            <i className="fa-solid fa-magnifying-glass"></i>
-                        </li>
                         <li className="user" onClick={openLoginPopup}>
                             <i className="fa-regular fa-user"></i>
                         </li>
