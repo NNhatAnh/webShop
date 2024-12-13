@@ -36,8 +36,8 @@ function App() {
       <Router>
         <Header openLoginPopup={openLoginPopup} openCartPopup={openCartPopup} />
         <Routes>
-          <Route exact path="/product" element={<Home />} />
-          <Route exact path="/" element={<Product />} />
+          <Route exact path="/" element={<Home />} />
+          <Route exact path="/product" element={<Product />} />
           <Route exact path="/policy" element={<Policy />} />
           <Route exact path="/contact" element={<Contact />} />
         </Routes>
