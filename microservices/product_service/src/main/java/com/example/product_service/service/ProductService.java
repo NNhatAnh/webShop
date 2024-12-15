@@ -99,8 +99,24 @@ public class ProductService {
     public String deleteItem(int productID) {
         Optional<ProductModel> product = ProductRepo.findById(productID);
         if (product.isPresent()) {
-            ProductRepo.delete(product.get());
+            // ProductRepo.delete(product.get());
             return "Product deleted successfully!";
+        } else {
+            throw new NoSuchElementException("Product not found with ID: " + productID);
+        }
+    }
+
+    public String togglePrivacyStatus(int productID) {
+        Optional<ProductModel> productOptional = ProductRepo.findById(productID);
+        
+        if (productOptional.isPresent()) {
+            ProductModel product = productOptional.get();
+            boolean currentStatus = product.getPrivacy();
+            product.setPrivacy(!currentStatus);
+            
+            ProductRepo.save(product);
+            
+            return currentStatus ? "Product is now marked as public." : "Product is now marked as private.";
         } else {
             throw new NoSuchElementException("Product not found with ID: " + productID);
         }

@@ -75,3 +75,16 @@
     border-radius: 5px; /* Tùy chọn: Bo tròn góc */
     border: 1px solid #ddd; /* Tùy chọn: Thêm viền ảnh */
 }
+
+.btn-show,
+.btn-delete {
+    margin-right: 5px;
+}
+
+.btn.btn-delete:disabled:hover,
+.btn.btn-delete:disabled {
+    background-color: #f8d7da;
+    color: #f5c6cb; 
+    border: 1px solid #f5c6cb;
+    cursor: not-allowed;
+}

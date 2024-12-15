@@ -2,6 +2,7 @@ import './product.css';
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import productService from '../../services/productService';
+import orderService from '../../services/orderService';
 
 function Product_list() {
     const [products, setProducts] = useState([]);
@@ -20,15 +21,43 @@ function Product_list() {
         }
     }
 
-    // Handle delete product
-    async function deleteItem(productID) {
-        if (window.confirm("Are you sure you want to delete this product?")) {
+    // Toggle hide/show product
+    async function toggleHideShow(product) {
+        const action = product.is_deleted ? "public" : "private";
+        console.log(action);
+        if (window.confirm(`Are you sure you want to ${action} this product?`)) {
             try {
-                await productService.deleteItem(productID);
-                setProducts((prevProducts) => prevProducts.filter(p => p.id !== productID));
-                alert("Product deleted successfully!");
+                await productService.selectedItem(product.id);
+
+                setProducts((prevProducts) =>
+                    prevProducts.map((p) =>
+                        p.id === product.id ? { ...p, is_deleted: !product.privacy } : p
+                    )
+                );
+                alert(`Product ${action}d successfully!`);
+                window.location.reload();
             } catch (err) {
-                alert("Error deleting product: " + err.message);
+                alert(`Error trying to ${action} product: ${err.message}`);
+            }
+        }
+    }
+
+    // Delete product
+    async function deleteProduct(product) {
+        if (window.confirm(`Are you sure you want to delete this product?`)) {
+            try {
+                await productService.deleteItem(product.id);
+                await orderService.removeProductFromOrder(product.id);
+
+                setProducts((prevProducts) =>
+                    prevProducts.filter((p) => p.id !== product.id)
+                );
+
+                alert(`Product deleted successfully from the order!`);
+
+                window.location.reload();
+            } catch (err) {
+                alert(`Error deleting product: ${err.message}`);
             }
         }
     }
@@ -58,6 +87,7 @@ function Product_list() {
                         <th>Brand</th>
                         <th>Category</th>
                         <th>Price</th>
+                        <th>Status</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -77,6 +107,7 @@ function Product_list() {
                             <td>{product.brand}</td>
                             <td>{product.category}</td>
                             <td>{product.price}</td>
+                            <td>{product.privacy ? "Hidden" : "Visible"}</td>
                             <td>
                                 <Link
                                     to={`/product/${product.id}`}
@@ -84,9 +115,19 @@ function Product_list() {
                                 >
                                     Edit
                                 </Link>
+
+                                <button
+                                    className={`btn ${product.privacy ? "btn-show" : "btn-delete"}`}
+                                    onClick={() => toggleHideShow(product)}
+                                >
+                                    {product.privacy ? "Public" : "Private"}
+                                </button>
+
                                 <button
                                     className="btn btn-delete"
-                                    onClick={() => deleteItem(product.id)}
+                                    onClick={() => deleteProduct(product)}
+                                    disabled={!product.privacy}
+                                    title={product.privacy === true ? "" : "Cannot delete when product is public"}
                                 >
                                     Delete
                                 </button>

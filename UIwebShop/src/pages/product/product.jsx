@@ -13,25 +13,19 @@ export default function Product() {
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [showModal, setShowModal] = useState(false);
     const [showLoginPopup, setShowLoginPopup] = useState(false);
-    const [user, setUser] = useState(null);
 
     useEffect(() => {
         const listProduct = async () => {
             try {
                 const data = await productService.listProduct();
-                setProducts(data);
+                const filteredProducts = data.filter(product => product.privacy === false);
+                setProducts(filteredProducts);
                 setLoading(false);
             } catch (err) {
                 setError(err.message);
                 setLoading(false);
             }
         };
-
-        const storedUser = localStorage.getItem("user");
-        if (storedUser) {
-            const decodedToken = useAuth.DecodeToken(storedUser);
-            setUser(decodedToken?.data || null);
-        }
 
         listProduct();
     }, []);
@@ -96,21 +90,26 @@ export default function Product() {
         if (!storedUser) {
             setShowLoginPopup(true);
             return;
+        } else {
+            if (useAuth.checkExpired(storedUser)) {
+                alert("User token expired !\n Please login again !");
+                localStorage.removeItem(storedUser);
+            }
         }
-    
+
         const userId = useAuth.getUserID(storedUser);
-    
+
         if (!userId) {
             alert("User ID is missing.");
             return;
         }
-    
+
         const transformedCartItems = cartItems.map((item) => ({
-            product: item.id,       
+            product: item.id,
             quantity: item.quantity,
             price: item.price,
         }));
-    
+
         try {
             await orderService.addItem(userId, transformedCartItems);
             setCartItems([]);

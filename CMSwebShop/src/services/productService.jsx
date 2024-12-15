@@ -43,7 +43,7 @@ class productService {
                 },
             });
             return response.data;
-        } catch(error) {
+        } catch (error) {
             console.error(error);
             throw error;
         }
@@ -57,13 +57,29 @@ class productService {
                     "Content-Type": "application/json"
                 }
             });
+
             return response.data;
-        } catch(error) {
+        } catch (error) {
+            console.error('Error deleting product:', error);
+            throw error;
+        }
+    }
+
+    // API for set privacy item
+    static selectedItem = async (productID) => {
+        try {
+            const response = await API.put(`/action/${productID}`, {
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            });
+            return response.data;
+        } catch (error) {
             console.error(error);
             throw error;
         }
     }
-    
+
     // API to list all products
     static listProduct = async () => {
         try {

@@ -20,7 +20,7 @@ export default function Cart({ closePopup }) {
     async function CartList(userID) {
         try {
             const data = await orderService.userCart(userID);
-
+            console.log("data:",data);
             if (data.length > 0) {
                 const allOrderDetails = [];
                 const allOrderProduct = [];
@@ -32,6 +32,7 @@ export default function Cart({ closePopup }) {
                             ...item,
                             timeOrder: formatDate(data[i].timeOrder),
                             orderID: data[i].id,
+                            status: data[i].status,
                         }));
                         allOrderDetails.push(...detailedWithTimeOrder);
                     } else {
@@ -79,6 +80,7 @@ export default function Cart({ closePopup }) {
                 }, []);
 
                 setCartItems(groupedCartItems);
+                console.log(groupedCartItems);
             } else {
                 console.log("No cart data found for the user.");
             }
@@ -124,10 +126,13 @@ export default function Cart({ closePopup }) {
                             const totalAmount = order.products.reduce((sum, item) => {
                                 return sum + (item.productDetail?.price || 0) * item.quantity;
                             }, 0);
-
+    
                             return (
                                 <div className="cart-order" key={order.orderID}>
                                     <h3>Order Time: {order.timeOrder}</h3>
+    
+                                    <p className="cart-order__status">Status: {order.products[0]?.status || "Unknown"}</p>
+    
                                     <div className="cart-order__products">
                                         {order.products.map((item, productIndex) => (
                                             <div className="cart-item" key={item.id || productIndex}>
@@ -140,8 +145,8 @@ export default function Cart({ closePopup }) {
                                                             />
                                                         ) : (
                                                             <img
-                                                                src="/path/to/default-image.jpg"
-                                                                alt="Default Product"
+                                                            src="/path/to/default-image.jpg"
+                                                            alt="Default Product"
                                                             />
                                                         )}
                                                     </div>
@@ -151,7 +156,6 @@ export default function Cart({ closePopup }) {
                                                         </p>
                                                         <p className="cart-item__price">${item.productDetail?.price || 0}</p>
                                                         <p className="cart-item__quantity">Quantity: {item.quantity}</p>
-                                                        <p className="cart-item__status">Status: {item.status || "Pending"}</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -176,4 +180,5 @@ export default function Cart({ closePopup }) {
             </div>
         </div>
     );
+    
 }

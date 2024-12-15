@@ -33,6 +33,12 @@ const Product_edit = () => {
     }
   };
 
+  const CancelEdit = () => {
+    if (confirm("Are you sure want to cancel ?")) {
+      navigate("/productList");
+    }
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -138,7 +144,7 @@ const Product_edit = () => {
         </div>
         <div className="form-actions">
           <button type="submit">Update</button>
-          <button type="button" onClick={() => console.log("Cancelled")}>
+          <button type="button" onClick={() => CancelEdit()}>
             Cancel
           </button>
         </div>

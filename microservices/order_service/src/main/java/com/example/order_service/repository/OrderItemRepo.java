@@ -1,6 +1,7 @@
 package com.example.order_service.repository;
 
 import com.example.order_service.module.OrderItemModel;
+import com.example.order_service.module.OrderListModel;
 
 import java.util.List;
 
@@ -13,4 +14,6 @@ public interface OrderItemRepo extends JpaRepository<OrderItemModel, Integer> {
     List<OrderItemModel> orderDetail(@Param("orderID") int orderID);
     
     List<OrderItemModel> findById(int id);
+    List<OrderItemModel> findByOrder(OrderListModel order);
+    List<OrderItemModel> findByProduct(int product);
 }

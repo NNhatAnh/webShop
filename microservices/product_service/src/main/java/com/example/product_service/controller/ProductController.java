@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.service.annotation.PutExchange;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -65,7 +65,7 @@ public class ProductController {
     }
 
     // API for update product information
-    @PutExchange("/update/{productID}")
+    @PutMapping("/update/{productID}")
     public ResponseEntity<?> updateProduct(
             @PathVariable int productID,
             @RequestParam("product") String product,
@@ -88,6 +88,19 @@ public class ProductController {
     public ResponseEntity<String> deleteItem(@PathVariable int productID) {
         try {
             String response = ProductService.deleteItem(productID);
+            return ResponseEntity.ok(response);
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product not found with ID: " + productID);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error deleting product.");
+        }
+    }
+
+    // API for delete item
+    @PutMapping("/action/{productID}")
+    public ResponseEntity<String> privacyProduct(@PathVariable int productID) {
+        try {
+            String response = ProductService.togglePrivacyStatus(productID);
             return ResponseEntity.ok(response);
         } catch (NoSuchElementException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product not found with ID: " + productID);

@@ -31,6 +31,11 @@ class useAuth {
             return null;
         }
     }
+
+    static checkExpired = (token) => {
+        const currentDate = Math.floor(Date.now() / 1000);
+        return currentDate > token.exp;
+    }
 };
 
 export default useAuth;

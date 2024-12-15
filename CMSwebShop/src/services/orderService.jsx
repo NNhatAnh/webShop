@@ -36,11 +36,28 @@ class orderService {
         try {
             const response = await API.put(`/status/${orderID}`);
             return response.data;
-        } catch(error) {
+        } catch (error) {
             console.error(error);
             throw error;
         }
     }
+
+    // API to delete order item
+    static removeProductFromOrder = async (productID) => {
+        try {
+            const response = await API.delete(`/remove/${productID}`, {
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            });
+
+            return response.data;
+        } catch (error) {
+            console.error('Error removing product from order:', error);
+            throw error;
+        }
+    }
+
 
     // API list all order
     static listOrder = async () => {

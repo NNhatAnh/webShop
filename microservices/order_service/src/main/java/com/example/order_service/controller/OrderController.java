@@ -3,7 +3,6 @@ package com.example.order_service.controller;
 import com.example.order_service.module.OrderItemModel;
 import com.example.order_service.module.OrderItemRequest;
 import com.example.order_service.module.OrderListModel;
-import com.example.order_service.module.OrderListModel.Status;
 import com.example.order_service.repository.OrderItemRepo;
 import com.example.order_service.repository.OrderListRepo;
 import com.example.order_service.service.OrderService;
@@ -22,7 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -117,6 +115,20 @@ public class OrderController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Failed to delete the order. Error: " + e.getMessage());
+        }
+    }
+
+    // API for removing a product from an order
+    @DeleteMapping("/remove/{productID}")
+    public ResponseEntity<Map<String, String>> removeProductFromOrder(@PathVariable int productID) {
+        try {
+            String message = OrderService.removeProductFromOrder(productID);
+            return new ResponseEntity<>(Map.of("message", message), HttpStatus.OK);
+        } catch (EntityNotFoundException e) {
+            return new ResponseEntity<>(Map.of("message", e.getMessage()), HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            return new ResponseEntity<>(Map.of("message", "Failed to remove product from order."),
+                    HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

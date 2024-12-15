@@ -16,6 +16,7 @@ public class ProductModel {
     private String image;
     private String category;
     private Double price;
+    private boolean is_deleted;
 
     @Column(name = "update_time", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime updateTime;
@@ -78,5 +79,13 @@ public class ProductModel {
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public boolean getPrivacy() {
+        return is_deleted;
+    }
+
+    public void setPrivacy(boolean is_deleted) {
+        this.is_deleted = is_deleted;
     }
 }
