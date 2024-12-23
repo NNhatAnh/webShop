@@ -9,7 +9,9 @@ export default function Header({ openLoginPopup, openCartPopup }) {
         <section className="header">
             <div className="container">
                 <div className="logo">
-                    <img src="../../images/Rolex_logo.svg" alt="Logo" />
+                    <Link to="/">
+                        <img src="../../images/Rolex_logo.svg" alt="Logo" />
+                    </Link>
                 </div>
                 <div className="navbar">
                     <ul className="navList">

@@ -80,7 +80,7 @@ export default function Cart({ closePopup }) {
                 }, []);
 
                 setCartItems(groupedCartItems);
-                console.log(groupedCartItems);
+                // console.log(groupedCartItems);
             } else {
                 console.log("No cart data found for the user.");
             }
