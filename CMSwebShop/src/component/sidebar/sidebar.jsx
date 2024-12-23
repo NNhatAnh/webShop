@@ -27,11 +27,11 @@ function Sidebar() {
                             className={openMenu.orders ? 'open' : ''}
                             onClick={() => toggleMenu('orders')}
                         >
-                            Đơn Hàng <i className="fa-solid fa-chevron-down"></i>
+                            Order <i className="fa-solid fa-chevron-down"></i>
                         </a>
                         <ul className={`sub-menu ${openMenu.orders ? 'open' : ''}`}>
                             <li>
-                                <Link to="/">Danh sách</Link>
+                                <Link to="/">List Order</Link>
                             </li>
                         </ul>
                     </li>
@@ -41,14 +41,14 @@ function Sidebar() {
                             className={openMenu.products ? 'open' : ''}
                             onClick={() => toggleMenu('products')}
                         >
-                            Sản Phẩm <i className="fa-solid fa-chevron-down"></i>
+                            Product <i className="fa-solid fa-chevron-down"></i>
                         </a>
                         <ul className={`sub-menu ${openMenu.products ? 'open' : ''}`}>
                             <li>
-                                <Link to="/productList">Danh sách</Link>
+                                <Link to="/productList">List Product</Link>
                             </li>
                             <li>
-                                <Link to="/productAdd">Thêm</Link>
+                                <Link to="/productAdd">Add Product</Link>
                             </li>
                         </ul>
                     </li>
