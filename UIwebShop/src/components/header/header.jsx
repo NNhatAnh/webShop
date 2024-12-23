@@ -1,15 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import './header.css';
 
 import logoHeader from '../../assets/react.svg';
 
 export default function Header({ openLoginPopup, openCartPopup }) {
+
+    const {input, setInput} = useState("")
+
     return (
         <section className="header">
             <div className="container">
                 <div className="logo">
-                    <img src="../../images/Rolex_logo.svg" alt="Logo" />
+                    <Link to="/">
+                        <img src="../../images/Rolex_logo.svg" alt="Logo" />
+                    </Link>
                 </div>
                 <div className="navbar">
                     <ul className="navList">

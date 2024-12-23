@@ -24,6 +24,7 @@
 }
 
 .admin-table {
+    margin-bottom: 40px;
     width: 100%;
     border-collapse: collapse;
 }
