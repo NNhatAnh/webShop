@@ -1,4 +1,3 @@
--- Cơ sở dữ liệu: `order`
 CREATE DATABASE IF NOT EXISTS order_db;
 
 USE order_db;

@@ -41,7 +41,7 @@ function Sidebar() {
                             className={openMenu.products ? 'open' : ''}
                             onClick={() => toggleMenu('products')}
                         >
-                            Products <i className="fa-solid fa-chevron-down"></i>
+                            Product <i className="fa-solid fa-chevron-down"></i>
                         </a>
                         <ul className={`sub-menu ${openMenu.products ? 'open' : ''}`}>
                             <li>

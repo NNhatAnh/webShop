@@ -20,7 +20,7 @@ export default function Cart({ closePopup }) {
     async function CartList(userID) {
         try {
             const data = await orderService.userCart(userID);
-            console.log("data:",data);
+
             if (data.length > 0) {
                 const allOrderDetails = [];
                 const allOrderProduct = [];
@@ -80,7 +80,7 @@ export default function Cart({ closePopup }) {
                 }, []);
 
                 setCartItems(groupedCartItems);
-                console.log(groupedCartItems);
+                // console.log(groupedCartItems);
             } else {
                 console.log("No cart data found for the user.");
             }

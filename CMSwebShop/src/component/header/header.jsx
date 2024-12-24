@@ -13,7 +13,7 @@ function Header(){
             <div className="admin-header-right">
                 <ul className="flex-box account-actions">
                     <li className="flex-box account-dropdown">
-                        <p><i className="fa-regular fa-user" style={{marginRight: '5px'}}></i>Account<i className="ri-arrow-down-s-fill"></i></p>
+                        <p><i className="fa-regular fa-user" style={{marginRight: '5px'}}></i>Account <i className="ri-arrow-down-s-fill"></i></p>
                         <div className="dropdown-menu">
                             <ul>
                                 <li><a href="#" onClick={handleLogout} >Log out</a></li>

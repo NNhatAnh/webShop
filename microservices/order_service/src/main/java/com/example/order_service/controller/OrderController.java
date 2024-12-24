@@ -55,8 +55,7 @@ public class OrderController {
     public ResponseEntity<List<OrderListModel>> userOrder(@PathVariable int userID) {
         List<OrderListModel> userOrder = OrderListRepo.findByUser(userID);
         if (userOrder.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(null);
+            return ResponseEntity.ok(userOrder);
         }
         return ResponseEntity.ok(userOrder);
     }
