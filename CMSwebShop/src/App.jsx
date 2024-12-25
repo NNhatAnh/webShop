@@ -10,7 +10,6 @@ import Product_add from './Pages/Product/product_add';
 import Product_edit from './Pages/Product/product_edit';
 import Order_item from './Pages/OrderItem/order_item';
 import Login from './component/login/login_admin';
-import useAuth from './component/hooks/useAuth';
 
 function App() {
   // State kiểm tra xem người dùng đã đăng nhập hay chưa
