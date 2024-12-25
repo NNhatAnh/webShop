@@ -44,19 +44,16 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-        // Listen for navigation changes to determine if we're on the home page
         navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
             if (destination.getId() == R.id.nav_home) {
-                setupSlider(); // Set up the slider if we are on the home page
+                setupSlider();
             } else {
-                // If we leave the home page, make sure to hide the slider
                 hideSlider();
             }
         });
     }
 
     private void setupSlider() {
-        // Only setup the slider if it hasn't been set up yet
         if (viewPager2 == null) {
             viewPager2 = findViewById(R.id.slider);
 
@@ -72,14 +69,12 @@ public class MainActivity extends AppCompatActivity {
             autoSlide();
         }
 
-        // Ensure slider is visible on the home page
         if (viewPager2 != null) {
             viewPager2.setVisibility(View.VISIBLE);
         }
     }
 
     private void hideSlider() {
-        // Make sure to hide the slider when navigating away from the home page
         if (viewPager2 != null) {
             viewPager2.setVisibility(View.GONE);
         }
