@@ -18,3 +18,8 @@ spring:
           uri: http://localhost:1041
           predicates:
             - Path=/order/**
+
+        - id: paymentService
+          uri: http://localhost:1042
+          predicates:
+          - Path=/payment/**
