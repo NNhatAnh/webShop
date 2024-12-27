@@ -59,31 +59,30 @@ public class OrderService {
 
     public String removeProductFromOrder(Integer productID) {
         List<OrderItemModel> orderItems = OrderItemRepo.findByProduct(productID);
-    
+
         if (orderItems.isEmpty()) {
-            throw new EntityNotFoundException("Product not found in this order");
+            return "No one order yet";
         }
-    
+
         OrderItemRepo.deleteAll(orderItems);
-    
+
         List<OrderItemModel> remainingItems = OrderItemRepo.findByOrder(orderItems.get(0).getOrder());
-    
+
         if (remainingItems.isEmpty()) {
             OrderListRepo.deleteById(orderItems.get(0).getOrder().getId());
             return "Order deleted as it no longer has any items";
         }
-    
+
         BigDecimal totalPrice = remainingItems.stream()
                 .map(item -> item.getPrice().multiply(BigDecimal.valueOf(item.getQuantity())))
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
-    
+
         OrderListModel order = orderItems.get(0).getOrder();
         order.setTotalPrice(totalPrice);
         OrderListRepo.save(order);
-    
+
         return "Product removed successfully, and order updated";
     }
-    
 
     public String orderAction(int orderID) {
         Optional<OrderListModel> orderSelected = OrderListRepo.findById(orderID);
