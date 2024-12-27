@@ -34,7 +34,7 @@ function Product_list() {
                         p.id === product.id ? { ...p, is_deleted: !product.privacy } : p
                     )
                 );
-                alert(`Product ${action}d successfully!`);
+                alert(`Product ${action} successfully!`);
                 window.location.reload();
             } catch (err) {
                 alert(`Error trying to ${action} product: ${err.message}`);
@@ -54,8 +54,6 @@ function Product_list() {
                 );
 
                 alert(`Product deleted successfully from the order!`);
-
-                window.location.reload();
             } catch (err) {
                 alert(`Error deleting product: ${err.message}`);
             }

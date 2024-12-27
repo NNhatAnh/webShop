@@ -99,7 +99,7 @@ public class ProductService {
     public String deleteItem(int productID) {
         Optional<ProductModel> product = ProductRepo.findById(productID);
         if (product.isPresent()) {
-            // ProductRepo.delete(product.get());
+            ProductRepo.delete(product.get());
             return "Product deleted successfully!";
         } else {
             throw new NoSuchElementException("Product not found with ID: " + productID);
