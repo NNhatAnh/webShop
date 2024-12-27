@@ -12,14 +12,14 @@ const moment = require('moment');
 const axios = require("axios");
 let orderInfor = {}
 
-router.get('/', function(req, res, next){
-    res.render('orderlist', { title: 'Danh sách đơn hàng' })
+router.post('/', function(req, res, next){
+    orderInfor['price'] = req.body.price;
+    orderInfor['orderID'] = req.body.orderID;
+    res.redirect("/payment/create_payment_url")
 });
 
 router.get('/create_payment_url', function (req, res, next) {
-    const price = req.query.price;
-    const orderID = req.query.orderID;
-    orderInfor['orderID'] = orderID;
+    const price = orderInfor['price']
     if (!price) {
         return res.status(400).json({
             error: "Price parameter is required"

@@ -1,24 +1,31 @@
 import axios from "axios";
 
 const API = axios.create({
-    baseURL: 'http://localhost:8080/payment',
-    headers: {
-        'Content-Type': 'application/json',
-    },
+  baseURL: "http://localhost:8080/payment", // Update this base URL for production
+  headers: {
+    "Content-Type": "application/json",
+  },
 });
 
 class paymentService {
-    static createPaymentURL = async (orderID, price) => {
-        try {
-            const response = await API.get(`/create_payment_url?price=${price}`);
-            if (response) {
-                window.open(`http://localhost:8080/payment/create_payment_url?orderID=${orderID}&price=${price}`, "_blank");
-            }
-        } catch (error) {
-            console.error("Error creating payment URL:", error);
-            throw error;
-        }
-    };
+  // Static method to create a payment URL
+  static createPaymentURL = async (orderID, price) => {
+    try {
+      const payload = {
+        orderID: orderID,
+        price: price,
+      };
+
+      const response = await API.post("/", payload);
+      if (response) {
+          window.open(`http://localhost:8080/payment/create_payment_url`, "_blank");
+      }
+    } catch (error) {
+      console.error("Error creating payment URL:", error);
+      alert("Failed to create payment URL. Please try again later.");
+      throw error;
+    }
+  };
 }
 
 export default paymentService;
