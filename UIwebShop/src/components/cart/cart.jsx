@@ -186,12 +186,14 @@ export default function Cart({ closePopup }) {
                                         >
                                             Remove Order
                                         </button>
-                                        <button
-                                            className="cart-order__payment-btn"
-                                            onClick={() => handlePayment(order.orderID, totalAmount)}
-                                        >
-                                            Payment
-                                        </button>
+                                        {order.products[0]?.status !== "completed" && (
+                                            <button
+                                                className="cart-order__payment-btn"
+                                                onClick={() => handlePayment(order.orderID, totalAmount)}
+                                            >
+                                                Payment
+                                            </button>
+                                        )}
                                     </div>
                                 </div>
                             );
