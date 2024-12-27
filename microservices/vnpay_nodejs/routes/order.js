@@ -9,14 +9,23 @@ let router = express.Router();
 let $ = require('jquery');
 const request = require('request');
 const moment = require('moment');
-
+const axios = require("axios");
+let orderInfor = {}
 
 router.get('/', function(req, res, next){
     res.render('orderlist', { title: 'Danh sách đơn hàng' })
 });
 
 router.get('/create_payment_url', function (req, res, next) {
-    res.render('order', {title: 'Tạo mới đơn hàng', amount: 10000})
+    const price = req.query.price;
+    const orderID = req.query.orderID;
+    orderInfor['orderID'] = orderID;
+    if (!price) {
+        return res.status(400).json({
+            error: "Price parameter is required"
+        });
+    }
+    res.render('order', {title: 'Tạo mới đơn hàng', amount: price})
 });
 
 router.get('/querydr', function (req, res, next) {
@@ -52,7 +61,6 @@ router.post('/create_payment_url', function (req, res, next) {
     let returnUrl = config.get('vnp_ReturnUrl');
     let orderId = moment(date).format('DDHHmmss');
     let amount = req.body.amount;
-    console.log("amount:",amount);
     let bankCode = req.body.bankCode;
     
     let locale = req.body.language;
@@ -108,12 +116,13 @@ router.get('/vnpay_return', function (req, res, next) {
     let signData = querystring.stringify(vnp_Params, { encode: false });
     let crypto = require("crypto");     
     let hmac = crypto.createHmac("sha512", secretKey);
-    let signed = hmac.update(new Buffer(signData, 'utf-8')).digest("hex");     
-
+    let signed = hmac.update(new Buffer(signData, 'utf-8')).digest("hex");   
+    
+    let orderID = orderInfor['orderID'];
     if(secureHash === signed){
         //Kiem tra xem du lieu trong db co hop le hay khong va thong bao ket qua
-
-        res.render('success', {code: vnp_Params['vnp_ResponseCode']})
+        res.render('success', { code: vnp_Params['vnp_ResponseCode'] });
+        axios.put(`http://127.0.0.1:8080/order/status/${orderID}`)
     } else{
         res.render('success', {code: '97'})
     }

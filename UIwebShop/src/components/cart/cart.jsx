@@ -3,6 +3,7 @@ import "./cart.css";
 import { useParams } from "react-router-dom";
 import orderService from "../../services/orderService";
 import productService from "../../services/productService";
+import paymentService from "../../services/paymentService";
 import useAuth from "../../hooks/useAuth";
 
 export default function Cart({ closePopup }) {
@@ -113,14 +114,15 @@ export default function Cart({ closePopup }) {
         }
     };
 
+    const exchangeMoney = (money) => {
+        return money * 25455;
+    }
+
     const handlePayment = async (orderID, totalAmount) => {
         try {
-            const paymentResponse = await paymentService.createPaymentURL(orderID, totalAmount);
-            if (paymentResponse?.url) {
-                window.location.href = paymentResponse.url;
-            } else {
-                alert("Failed to retrieve payment URL. Please try again.");
-            }
+            const price = exchangeMoney(totalAmount);
+            await paymentService.createPaymentURL(orderID, price);
+            
         } catch (error) {
             console.error("Payment process failed:", error);
             alert("Payment process failed. Please try again.");

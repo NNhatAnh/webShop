@@ -9,6 +9,7 @@ var order = require('./routes/order');
 var app = express();
 
 // view engine setup
+app.set(express.static(path.join(__dirname, 'public')));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
