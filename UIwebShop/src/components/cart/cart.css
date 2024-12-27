@@ -108,6 +108,26 @@
     background-color: #d32f2f;
 }
 
+.cart-order__payment-btn {
+    background-color: #1dd01a; /* Màu xanh lá cho nút Payment */
+    color: white; /* Màu chữ trắng */
+    border: none; /* Không có viền */
+    padding: 10px 20px; /* Padding giống như nút Remove */
+    border-radius: 5px; /* Góc bo tròn */
+    cursor: pointer; /* Con trỏ chuột dạng pointer */
+    font-size: 14px; /* Kích thước chữ */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Hiệu ứng chuyển màu và hiệu ứng scale */
+    align-self: flex-start; /* Căn chỉnh phần tử sang bên đầu */
+}
+
+.cart-order__payment-btn:hover {
+    background-color: #5ff552; /* Khi hover, màu nền chuyển sang xanh lá nhạt */
+    transform: scale(1.05); /* Hiệu ứng phóng to khi hover */
+}
+
+
+
+
 .cart-item img {
     width: 80px;
     height: 80px;
