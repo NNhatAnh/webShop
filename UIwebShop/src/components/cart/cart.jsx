@@ -113,6 +113,21 @@ export default function Cart({ closePopup }) {
         }
     };
 
+    const handlePayment = async (orderID, totalAmount) => {
+        try {
+            const paymentResponse = await paymentService.createPaymentURL(orderID, totalAmount);
+            if (paymentResponse?.url) {
+                window.location.href = paymentResponse.url;
+            } else {
+                alert("Failed to retrieve payment URL. Please try again.");
+            }
+        } catch (error) {
+            console.error("Payment process failed:", error);
+            alert("Payment process failed. Please try again.");
+        }
+    };
+    
+
     return (
         <div className="cart-popup">
             <div className="cart-popup__content">
@@ -168,6 +183,12 @@ export default function Cart({ closePopup }) {
                                             onClick={() => handleRemoveOrder(order.orderID)}
                                         >
                                             Remove Order
+                                        </button>
+                                        <button
+                                            className="cart-order__payment-btn"
+                                            onClick={() => handlePayment(order.orderID, totalAmount)}
+                                        >
+                                            Payment
                                         </button>
                                     </div>
                                 </div>
