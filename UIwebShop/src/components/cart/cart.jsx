@@ -115,8 +115,8 @@ export default function Cart({ closePopup }) {
     };
 
     const exchangeMoney = (money) => {
-        return money * 25455;
-    }
+        return Math.floor(money * 25455);
+    };
 
     const handlePayment = async (orderID, totalAmount) => {
         try {
@@ -180,12 +180,14 @@ export default function Cart({ closePopup }) {
                                     </div>
                                     <div className="cart-order__footer">
                                         <p className="cart-order__total">Total: ${totalAmount.toFixed(2)}</p>
+                                        {order.products[0]?.status !== "completed" && (
                                         <button
                                             className="cart-order__remove-btn"
                                             onClick={() => handleRemoveOrder(order.orderID)}
                                         >
                                             Remove Order
-                                        </button>
+                                        </button>                                    
+                                        )}
                                         {order.products[0]?.status !== "completed" && (
                                             <button
                                                 className="cart-order__payment-btn"
