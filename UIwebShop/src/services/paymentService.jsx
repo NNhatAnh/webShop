@@ -1,14 +1,13 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "http://localhost:8080/payment", // Update this base URL for production
+  baseURL: "http://localhost:8080/payment",
   headers: {
     "Content-Type": "application/json",
   },
 });
 
 class paymentService {
-  // Static method to create a payment URL
   static createPaymentURL = async (orderID, price) => {
     try {
       const payload = {
