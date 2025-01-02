@@ -14,7 +14,7 @@ import java.util.Date;
 @Component
 public class JwtUtil {
 
-    private final String secretKey = "YourNew32ByteLongSecureSecretKey123";
+    private final String secretKey = "NanhHungry64ByteLongSecureSecretKey";
 
     private SecretKey getSigningKey() {
         return Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8));
