@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import './header.css';
 
-import logoHeader from '../../assets/react.svg';
+import logoHeader from '/images/Rolex_logo.svg';
 
 export default function Header({ openLoginPopup, openCartPopup }) {
     return (
@@ -10,7 +10,7 @@ export default function Header({ openLoginPopup, openCartPopup }) {
             <div className="container">
                 <div className="logo">
                     <Link to="/">
-                        <img src="../../images/Rolex_logo.svg" alt="Logo" />
+                        <img src={logoHeader} alt="Logo" />
                     </Link>
                 </div>
                 <div className="navbar">

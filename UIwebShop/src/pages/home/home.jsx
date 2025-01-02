@@ -8,14 +8,10 @@ export default function Home() {
         "../images/slide2.jpg",
         "../images/slide3.jpg",
     ];
+    const interval = setInterval(() => {
+        setCurrentSlide((prevSlide) => (prevSlide + 1) % slides.length);
+    }, 5000);
 
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setCurrentSlide((prevSlide) => (prevSlide + 1) % slides.length);
-        }, 5000); // Chuyển ảnh mỗi 
-
-        return () => clearInterval(interval); // Dọn dẹp interval khi component unmount
-    }, []);
     return (
         <div className="home-container">    
             <div className="slider">
