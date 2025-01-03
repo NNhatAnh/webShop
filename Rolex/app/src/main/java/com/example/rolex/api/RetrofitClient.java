@@ -11,14 +11,13 @@ public class RetrofitClient {
 
     public static Retrofit getClient(String baseUrl) {
         if (retrofit == null) {
-            // Tạo Gson với setLenient(true)
             Gson gson = new GsonBuilder()
-                    .setLenient() // Cho phép chấp nhận JSON không hoàn toàn hợp lệ
+                    .setLenient()
                     .create();
 
             retrofit = new Retrofit.Builder()
                     .baseUrl(baseUrl)
-                    .addConverterFactory(GsonConverterFactory.create(gson)) // Sử dụng Gson với lenient mode
+                    .addConverterFactory(GsonConverterFactory.create(gson))
                     .build();
         }
         return retrofit;

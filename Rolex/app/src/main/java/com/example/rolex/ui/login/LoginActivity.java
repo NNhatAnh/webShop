@@ -1,4 +1,5 @@
 package com.example.rolex.ui.login;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -15,6 +16,7 @@ import com.example.rolex.MainActivity;
 import com.example.rolex.R;
 import com.example.rolex.api.ApiService;
 import com.example.rolex.api.RetrofitClient;
+import com.example.rolex.ui.register.RegisterActivity;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -29,6 +31,13 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        TextView tvRegister = findViewById(R.id.tv_register);
+
+        tvRegister.setOnClickListener(v -> {
+            Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+            startActivity(intent);
+        });
 
         etUsername = findViewById(R.id.et_username);
         etPassword = findViewById(R.id.et_password);
@@ -58,7 +67,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(Call<String> call, Response<String> response) {
                 if (response.isSuccessful()) {
                     String token = response.body();
-                    Toast.makeText(LoginActivity.this, "Login successful: " + token, Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginActivity.this, "Login successful", Toast.LENGTH_LONG).show();
 
                     SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
